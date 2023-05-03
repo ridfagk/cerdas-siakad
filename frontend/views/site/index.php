@@ -2,9 +2,67 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'My Yii Application';
+$this->title = 'Dashboard Mahasiswa';
 ?>
 <div class="site-index">
+<div class="row">
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box bg-gradient-info">
+              <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
+
+              <div class="info-box-content mt-2">
+                <h6><span class="info-box-text">Mahasiswa Aktif</span></h6>
+                <h2><span class="info-box-number">41,410</span></h2>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box bg-gradient-success">
+              <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
+
+              <div class="info-box-content mt-2">
+                <h6><span class="info-box-text">Mahasiswa Lulus</span></h6>
+                <h2><span class="info-box-number">41,410</span></h2>
+
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box bg-gradient-warning">
+              <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
+
+              <div class="info-box-content mt-2">
+                <h6><span class="info-box-text">Mahasiswa Cuti</span></h6>
+                <h2><span class="info-box-number">41,410</span></h2>
+
+                
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box bg-gradient-danger">
+              <span class="info-box-icon"><i class="fas fa-comments"></i></span>
+
+              <div class="info-box-content mt-2">
+                <h6><span class="info-box-text">Mahasiswa Non Aktif</span></h6>
+                <h2><span class="info-box-number">41,410</span></h2>
+
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
     <div class="p-5 mb-4 bg-transparent rounded-3">
         <div class="container-fluid py-5 text-center">
             <h1 class="display-4">Congratulations!</h1>

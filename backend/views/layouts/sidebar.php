@@ -5,7 +5,7 @@ use yii\helpers\Html;
     <!-- Brand Logo -->
     <a href="index" class="brand-link">
     
-    <?= Html::img('@imageurl/frontend/web/img/cerdas-long.png', ['width' => '180'],['class' => 'brand-image'])?>
+    <?= Html::img('@imageurl/frontend/web/img/cerdas-long-white.png', ['width' => '180'],['class' => 'brand-image'])?>
     </a>
 
     <!-- Sidebar -->
@@ -13,7 +13,8 @@ use yii\helpers\Html;
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?=$assetDir?>/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <?= Html::img('@imageurl/frontend/web/img/user.png',['class' => 'img-circle elevation-2'])?>
+                
             </div>
             <div class="info">
                 <a href="#" class="d-block">Alexander Pierce</a>
@@ -39,7 +40,7 @@ use yii\helpers\Html;
             echo \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
                     ['label' => 'Dashboard', 'url' => ['site/index'], 'icon' => 'tachometer-alt'],
-                    ['label' => 'Data PT', 'icon' => 'user-circle'],
+                    ['label' => 'Data PT', 'url' => ['datapt/index'],'icon' => 'user-circle'],
                     ['label' => 'Data Mata Kuliah', 'icon' => 'file-alt'],
                     ['label' => 'Jadwal Kuliah', 'icon' => 'money-bill-wave'],
                     ['label' => 'Jadwal Ujian', 'icon' => 'calendar-alt'],
