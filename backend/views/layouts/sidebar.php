@@ -41,7 +41,7 @@ use yii\helpers\Html;
                 'items' => [
                     ['label' => 'Dashboard', 'url' => ['site/index'], 'icon' => 'tachometer-alt'],
                     ['label' => 'Data PT', 'url' => ['datapt/index'],'icon' => 'user-circle'],
-                    ['label' => 'Data Mata Kuliah', 'icon' => 'file-alt'],
+                    ['label' => 'Data Mata Kuliah', 'url' => ['matkul/index'],'icon' => 'file-alt'],
                     ['label' => 'Jadwal Kuliah', 'icon' => 'money-bill-wave'],
                     ['label' => 'Jadwal Ujian', 'icon' => 'calendar-alt'],
                     ['label' => 'Evaluasi', 'icon' => 'file-alt'],

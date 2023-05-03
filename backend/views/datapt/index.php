@@ -10,12 +10,10 @@ use yii\widgets\Pjax;
 /** @var backend\models\DataPTSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Data Pts';
+$this->title = 'Data Perguruan Tinggi';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="data-pt-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Create Data Pt', ['create'], ['class' => 'btn btn-success']) ?>
