@@ -64,7 +64,7 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
 
         <div class="form-group">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-block']) ?>
+            <?= Html::submitButton('Save', ['class' => 'btn btn-primary btn-block']) ?>
         </div>
     </div>
     <?php ActiveForm::end(); ?>

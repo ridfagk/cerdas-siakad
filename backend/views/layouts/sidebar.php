@@ -49,6 +49,7 @@ use yii\helpers\Html;
                     ['label' => 'Mentor', 'icon' => 'file-alt'],
                     ['label' => 'Mahasiswa', 'icon' => 'file-export'],
                     ['label' => 'Template Surat', 'icon' => 'file-export'],
+                    ['label' => 'Pengumuman', 'url' => ['pengumuman/index'],'icon' => 'file-export'],
                     // [
                     //     'label' => 'Starter Pages',
                     //     'icon' => 'tachometer-alt',
