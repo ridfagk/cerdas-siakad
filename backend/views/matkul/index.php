@@ -10,29 +10,28 @@ use yii\widgets\Pjax;
 /** @var backend\models\MataKuliahSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Mata Kuliah';
+$this->title = 'Data Mata Kuliah';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mata-kuliah-index">
 
     <p>
-        <?= Html::a('Create Mata Kuliah', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambahkan Mata Kuliah', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id_matkul',
+            'semester',
             'kd_matkul',
             'nama_matkul',
             'sks',
-            'semester',
+            
             //'porsi_uts',
             //'porsi_uas',
             //'porsi_tugas',
