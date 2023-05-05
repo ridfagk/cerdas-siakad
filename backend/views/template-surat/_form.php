@@ -12,8 +12,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_surat')->textInput() ?>
-
     <?= $form->field($model, 'nama_surat')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'file')->textInput(['maxlength' => true]) ?>

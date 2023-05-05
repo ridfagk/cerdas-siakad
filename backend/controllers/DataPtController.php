@@ -67,19 +67,37 @@ class DataptController extends Controller
      */
     public function actionIndex()
     {
-        $model = new DataPT();
+        $cekpt = DataPT::find()->count();
+        if ($cekpt < 1) {
+            $model = new DataPT();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'kd_pt' => $model->kd_pt]);
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['create', 'kd_pt' => $model->kd_pt]);
+                }
+            } else {
+                $model->loadDefaultValues();
             }
-        } else {
-            $model->loadDefaultValues();
-        }
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }else{
+            $model = DataPT::find()->one();
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['update', 'kd_pt' => $model->kd_pt]);
+                }
+            } else {
+                $model->loadDefaultValues();
+            }
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+        
+
+        
     }
 
     /**
