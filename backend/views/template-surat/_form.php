@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\file\FileInput;
 
 /** @var yii\web\View $this */
 /** @var backend\models\DataTemplateSurat $model */
@@ -9,17 +10,19 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="data-template-surat-form">
+    <div class="card card-body">
+        <?php $form = ActiveForm::begin(); ?>
 
-    <?php $form = ActiveForm::begin(); ?>
+        <?= $form->field($model, 'nama_surat')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'nama_surat')->textInput(['maxlength' => true]) ?>
+        <?=  $form->field($model, 'file')->widget(FileInput::classname(), [
+            ])->label('File Template Surat');
+        ?>
 
-    <?= $form->field($model, 'file')->textInput(['maxlength' => true]) ?>
+        <div class="form-group">
+            <?= Html::submitButton('Simpan', ['class' => 'btn btn-primary btn-block']) ?>
+        </div>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?php ActiveForm::end(); ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>

@@ -2,11 +2,13 @@
 
 namespace backend\controllers;
 
+use Yii;
 use backend\models\Pengumuman;
 use backend\models\PengumumanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * PengumumanController implements the CRUD actions for Pengumuman model.
@@ -70,7 +72,15 @@ class PengumumanController extends Controller
         $model = new Pengumuman();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+                $model->banner = UploadedFile::getInstance($model,'banner');
+                    if($model->banner){               
+                        $file =time().'.'.$model->banner->extension;
+                        if ($model->banner->saveAs(Yii::getAlias('@webroot').'/bannerinfo/'.$file)){
+                            $model->banner = $file;           
+                        }
+                    }
+                    $model->save(false);
                 return $this->redirect(['view', 'id_pengumuman' => $model->id_pengumuman]);
             }
         } else {

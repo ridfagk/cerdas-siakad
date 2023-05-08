@@ -31,6 +31,7 @@ class Pengumuman extends \yii\db\ActiveRecord
             [[ 'judul', 'isi', 'jenis_user'], 'required'],
             [['id_pengumuman'], 'integer'],
             [['judul', 'isi', 'jenis_user'], 'string', 'max' => 45],
+            [['banner'], 'string'],
             [['id_pengumuman'], 'unique'],
         ];
     }

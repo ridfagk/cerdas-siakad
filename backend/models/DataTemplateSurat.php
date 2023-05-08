@@ -29,7 +29,8 @@ class DataTemplateSurat extends \yii\db\ActiveRecord
         return [
             [[ 'nama_surat', 'file'], 'required'],
             [['id_surat'], 'integer'],
-            [['nama_surat', 'file'], 'string', 'max' => 45],
+            [['nama_surat'], 'string', 'max' => 45],
+            [['file'], 'string'],
             [['id_surat'], 'unique'],
         ];
     }

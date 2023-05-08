@@ -2,11 +2,13 @@
 
 namespace backend\controllers;
 
+use Yii;
 use backend\models\DataTemplateSurat;
 use backend\models\DataTemplateSuratSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * TemplateSuratController implements the CRUD actions for DataTemplateSurat model.
@@ -70,7 +72,15 @@ class TemplateSuratController extends Controller
         $model = new DataTemplateSurat();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+                $model->file = UploadedFile::getInstance($model,'file');
+                    if($model->file){               
+                        $file =time().'.'.$model->file->extension;
+                        if ($model->file->saveAs(Yii::getAlias('@webroot').'/templatesurat/'.$file)){
+                            $model->file = $file;           
+                        }
+                    }
+                    $model->save(false);
                 return $this->redirect(['view', 'id_surat' => $model->id_surat]);
             }
         } else {

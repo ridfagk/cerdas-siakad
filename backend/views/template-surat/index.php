@@ -14,32 +14,35 @@ $this->title = 'Template Surat';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="data-template-surat-index">
+    <div class="card">
+        <div class="card-header">
+            <?= Html::a('Tambahkan Template Surat', ['create'], ['class' => 'btn btn-success']) ?>
+        </div>
 
-    <p>
-        <?= Html::a('Tambahkan Template Surat', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+        <div class="card-body">
+            <?php Pjax::begin(); ?>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                    'id_surat',
+                    'nama_surat',
+                    'file',
+                    [
+                        'class' => ActionColumn::className(),
+                        'urlCreator' => function ($action, DataTemplateSurat $model, $key, $index, $column) {
+                            return Url::toRoute([$action, 'id_surat' => $model->id_surat]);
+                        }
+                    ],
+                ],
+            ]); ?>
 
-            'id_surat',
-            'nama_surat',
-            'file',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, DataTemplateSurat $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id_surat' => $model->id_surat]);
-                 }
-            ],
-        ],
-    ]); ?>
-
-    <?php Pjax::end(); ?>
+            <?php Pjax::end(); ?>
+        </div>
+    </div>
 
 </div>

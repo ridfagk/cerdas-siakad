@@ -14,33 +14,34 @@ $this->title = 'Pengumuman';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengumuman-index">
+    <div class="card">
+        <div class="card-header">
+            <?= Html::a('Buat Pengumuman', ['create'], ['class' => 'btn btn-success']) ?>
+        </div>
 
-    <p>
-        <?= Html::a('Buat Pengumuman', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+        <div class="card-body">
+            <?php Pjax::begin(); ?>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    'judul',
+                    'isi',
+                    'jenis_user',
+                    'banner',
+                    [
+                        'class' => ActionColumn::className(),
+                        'urlCreator' => function ($action, Pengumuman $model, $key, $index, $column) {
+                            return Url::toRoute([$action, 'id_pengumuman' => $model->id_pengumuman]);
+                        }
+                    ],
+                ],
+            ]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id_pengumuman',
-            'judul',
-            'isi',
-            'jenis_user',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Pengumuman $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id_pengumuman' => $model->id_pengumuman]);
-                 }
-            ],
-        ],
-    ]); ?>
-
-    <?php Pjax::end(); ?>
-
+            <?php Pjax::end(); ?>
+        </div>
+    </div>
 </div>
