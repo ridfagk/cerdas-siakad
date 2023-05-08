@@ -1,6 +1,7 @@
 <?php
 
-use yii\helpers\Html;
+use yii\helpers\{Html,Url};
+use yii\bootstrap5\Modal;
 
 /** @var yii\web\View $this */
 /** @var backend\models\DataPT $model */
@@ -22,7 +23,9 @@ $this->params['breadcrumbs'][] = 'Update';
                         <?php } else { ?>
                             <?= Html::img('@imageurl/backend/web/img/'.$model->logo_pt,['class' => 'img-circle mb-2','width' => '150'])?><br>
                         <?php } ?>
-                        <?= Html::a('Upload Logo PT', ['create'], ['class' => 'btn btn-primary']) ?>
+                        <h5><?= $model->nama_pt?></h5>
+                        <a class="btn btn-primary modalLogo mt-2" value="<?= Url::to(['addlogo']) ?>"><i class="fas fa-camera">&nbsp;</i> Upload Logo PT</a>
+                    
                     </center>
                 </div>
             </div>
@@ -35,3 +38,23 @@ $this->params['breadcrumbs'][] = 'Update';
     </div>
 
 </div>
+<?php
+$js=<<<js
+
+  $('.modalLogo').on('click', function () {
+    $('#modalfoto').modal('show')
+            .find('#modalFoto')
+            .load($(this).attr('value'));
+  });
+
+js;
+$this->registerJs($js);
+
+Modal::begin([  
+  'id' => 'modalfoto',
+  'size' => 'modal-md',
+]);
+echo "<div id='modalFoto'></div>";
+Modal::end();
+?>
+

@@ -109,27 +109,22 @@ class DataptController extends Controller
         
     }
 
-    public function actionAddfoto()
+    public function actionAddlogo()
     {
         $model = DataPT::find()->one();
-        $smid = $_GET['smid'];
-        $idx = $_GET['id'];
-        $model->sm_id = $smid;
-        $model->timecreated =  date('Y-m-d H:i:s');
-        $model->foto_id =  time();
         if ($model->load(Yii::$app->request->post())) {
-            $model->foto = UploadedFile::getInstance($model,'foto');
-            if($model->foto){               
-                $file =$model->foto_id.'.'.$model->foto->extension;
-                if ($model->foto->saveAs(Yii::getAlias('@webroot').'/adminsbb/fotosm/'.$file)){
-                    $model->foto = $file;           
+            $model->logo_pt = UploadedFile::getInstance($model,'logo_pt');
+            if($model->logo_pt){               
+                $file ='logo_'.time().'.'.$model->logo_pt->extension;
+                if ($model->logo_pt->saveAs(Yii::getAlias('@webroot').'/img/'.$file)){
+                    $model->logo_pt = $file;           
                 }
             }
             $model->save(false);
-            return $this->redirect(['view','id'=>$idx,'smid'=>$smid]);
+            return $this->redirect(['index']);
         }
 
-        return $this->renderAjax('addfoto', [
+        return $this->renderAjax('addlogo', [
             'model' => $model,
         ]);
        

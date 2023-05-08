@@ -57,10 +57,6 @@ use kartik\file\FileInput;
             </div>
         </div>
 
-        <?=  $form->field($model, 'logo_pt')->widget(FileInput::classname(), [
-            'options' => ['accept' => 'image/*'],
-        ]);?>
-
         <?= $form->field($model, 'alamat_pt')->textarea(['rows' => 6])->label('Alamat Perguruan Tinggi') ?>
 
         <div class="row">
