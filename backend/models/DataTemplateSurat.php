@@ -27,7 +27,7 @@ class DataTemplateSurat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_surat', 'nama_surat', 'file'], 'required'],
+            [[ 'nama_surat', 'file'], 'required'],
             [['id_surat'], 'integer'],
             [['nama_surat', 'file'], 'string', 'max' => 45],
             [['id_surat'], 'unique'],

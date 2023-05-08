@@ -27,7 +27,7 @@ class DataTA extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_thnakademik', 'thn_akademik'], 'required'],
+            [['thn_akademik'], 'required'],
             [['id_thnakademik'], 'integer'],
             [['thn_akademik', 'status'], 'string', 'max' => 45],
             [['id_thnakademik'], 'unique'],
