@@ -35,7 +35,7 @@ class MataKuliah extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_matkul', 'kd_matkul', 'nama_matkul', 'sks', 'semester', 'porsi_uts', 'porsi_uas', 'porsi_tugas', 'porsi_keaktifan'], 'required'],
+            [['kd_matkul', 'nama_matkul', 'sks', 'semester', 'porsi_uts', 'porsi_uas', 'porsi_tugas', 'porsi_keaktifan'], 'required'],
             [['id_matkul', 'sks', 'porsi_uts', 'porsi_uas', 'porsi_tugas', 'porsi_keaktifan'], 'integer'],
             [['kd_matkul'], 'string', 'max' => 25],
             [['nama_matkul'], 'string', 'max' => 250],

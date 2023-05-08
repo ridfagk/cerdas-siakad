@@ -14,37 +14,39 @@ $this->title = 'Data Mata Kuliah';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mata-kuliah-index">
+    <div class="card">
 
-    <p>
-        <?= Html::a('Tambahkan Mata Kuliah', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'semester',
-            'kd_matkul',
-            'nama_matkul',
-            'sks',
+        <div class="card-header">
+            <?= Html::a('Tambahkan Mata Kuliah', ['create'], ['class' => 'btn btn-success']) ?>
+        </div>
+        <div class="card-body">
+            <?php Pjax::begin(); ?>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
             
-            //'porsi_uts',
-            //'porsi_uas',
-            //'porsi_tugas',
-            //'porsi_keaktifan',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, MataKuliah $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id_matkul' => $model->id_matkul]);
-                 }
-            ],
-        ],
-    ]); ?>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    'semester',
+                    'kd_matkul',
+                    'nama_matkul',
+                    'sks',
+                    
+                    //'porsi_uts',
+                    //'porsi_uas',
+                    //'porsi_tugas',
+                    //'porsi_keaktifan',
+                    [
+                        'class' => ActionColumn::className(),
+                        'urlCreator' => function ($action, MataKuliah $model, $key, $index, $column) {
+                            return Url::toRoute([$action, 'id_matkul' => $model->id_matkul]);
+                        }
+                    ],
+                ],
+            ]); ?>
 
-    <?php Pjax::end(); ?>
+            <?php Pjax::end(); ?>
+        </div>
 
 </div>

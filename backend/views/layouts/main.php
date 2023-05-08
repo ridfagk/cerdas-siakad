@@ -38,7 +38,11 @@ $this->registerJsFile($publishedRes[1].'/control_sidebar.js', ['depends' => '\ha
 </head>
 <body class="hold-transition sidebar-mini">
 <?php $this->beginBody() ?>
-
+<style>
+    .content-header{
+        color:#123985;
+    }
+</style>
 <div class="wrapper">
     <!-- Navbar -->
     <?= $this->render('navbar', ['assetDir' => $assetDir]) ?>

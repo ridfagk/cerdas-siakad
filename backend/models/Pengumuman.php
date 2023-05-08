@@ -28,7 +28,7 @@ class Pengumuman extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_pengumuman', 'judul', 'isi', 'jenis_user'], 'required'],
+            [[ 'judul', 'isi', 'jenis_user'], 'required'],
             [['id_pengumuman'], 'integer'],
             [['judul', 'isi', 'jenis_user'], 'string', 'max' => 45],
             [['id_pengumuman'], 'unique'],

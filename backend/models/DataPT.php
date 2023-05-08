@@ -41,7 +41,7 @@ class DataPT extends \yii\db\ActiveRecord
     {
         return [
             [['kd_pt', 'nama_pt', 'tahun_berdiri', 'pendiri', 'alamat_pt', 'provinsi', 'kabupaten', 'kecamatan', 'desa', 'kode_pos', 'email', 'website', 'no_telp', 'akta_pendirian', 'akreditasi', 'status'], 'required'],
-            [['alamat_pt'], 'string'],
+            [['alamat_pt','logo_pt'], 'string'],
             [['no_telp'], 'integer'],
             [['kd_pt', 'akta_pendirian', 'akreditasi', 'status'], 'string', 'max' => 45],
             [['nama_pt', 'website'], 'string', 'max' => 250],

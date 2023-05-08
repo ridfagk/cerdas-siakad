@@ -1,12 +1,13 @@
 <?php
 
 namespace backend\controllers;
-
+use Yii;
 use backend\models\DataPT;
 use backend\models\DataPTSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * DataPTController implements the CRUD actions for DataPT model.
@@ -73,7 +74,7 @@ class DataptController extends Controller
 
             if ($this->request->isPost) {
                 if ($model->load($this->request->post()) && $model->save()) {
-                    return $this->redirect(['create', 'kd_pt' => $model->kd_pt]);
+                    return $this->redirect(['index']);
                 }
             } else {
                 $model->loadDefaultValues();
@@ -85,8 +86,16 @@ class DataptController extends Controller
             $model = DataPT::find()->one();
 
             if ($this->request->isPost) {
-                if ($model->load($this->request->post()) && $model->save()) {
-                    return $this->redirect(['update', 'kd_pt' => $model->kd_pt]);
+                if ($model->load($this->request->post())) {
+                    $model->logo_pt = UploadedFile::getInstance($model,'logo_pt');
+                    if($model->logo_pt){               
+                        $file =$model->kd_pt.'.'.$model->logo_pt->extension;
+                        if ($model->logo_pt->saveAs(Yii::getAlias('@webroot').'/img/'.$file)){
+                            $model->logo_pt = $file;           
+                        }
+                    }
+                    $model->save(false);
+                    return $this->redirect(['index']);
                 }
             } else {
                 $model->loadDefaultValues();
@@ -100,24 +109,30 @@ class DataptController extends Controller
         
     }
 
-    /**
-     * Updates an existing DataPT model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $kd_pt Kd Pt
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($kd_pt)
+    public function actionAddfoto()
     {
-        $model = $this->findModel($kd_pt);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'kd_pt' => $model->kd_pt]);
+        $model = DataPT::find()->one();
+        $smid = $_GET['smid'];
+        $idx = $_GET['id'];
+        $model->sm_id = $smid;
+        $model->timecreated =  date('Y-m-d H:i:s');
+        $model->foto_id =  time();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->foto = UploadedFile::getInstance($model,'foto');
+            if($model->foto){               
+                $file =$model->foto_id.'.'.$model->foto->extension;
+                if ($model->foto->saveAs(Yii::getAlias('@webroot').'/adminsbb/fotosm/'.$file)){
+                    $model->foto = $file;           
+                }
+            }
+            $model->save(false);
+            return $this->redirect(['view','id'=>$idx,'smid'=>$smid]);
         }
 
-        return $this->render('update', [
+        return $this->renderAjax('addfoto', [
             'model' => $model,
         ]);
+       
     }
 
     /**

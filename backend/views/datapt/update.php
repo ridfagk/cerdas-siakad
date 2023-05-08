@@ -17,7 +17,11 @@ $this->params['breadcrumbs'][] = 'Update';
             <div class="col-md-4">
                 <div class="card card-body">
                     <center>
-                        <?= Html::img('@imageurl/frontend/web/img/univ.png',['class' => 'img-circle mb-2','width' => '150'])?><br>
+                        <?php if($model->logo_pt == ''){?>
+                            <?= Html::img('@imageurl/frontend/web/img/univ.png',['class' => 'img-circle mb-2','width' => '150'])?><br>
+                        <?php } else { ?>
+                            <?= Html::img('@imageurl/backend/web/img/'.$model->logo_pt,['class' => 'img-circle mb-2','width' => '150'])?><br>
+                        <?php } ?>
                         <?= Html::a('Upload Logo PT', ['create'], ['class' => 'btn btn-primary']) ?>
                     </center>
                 </div>

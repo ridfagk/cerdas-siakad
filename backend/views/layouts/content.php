@@ -1,7 +1,7 @@
 <?php
 /* @var $content string */
 
-use yii\bootstrap4\Breadcrumbs;
+use yii\bootstrap5\Breadcrumbs;
 ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -9,7 +9,7 @@ use yii\bootstrap4\Breadcrumbs;
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">
+                    <h4 class="m-0" style="font-weight:bold">
                         <?php
                         if (!is_null($this->title)) {
                             echo \yii\helpers\Html::encode($this->title);
