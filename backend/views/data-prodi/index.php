@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="data-prodi-index">
 
     <p>
-        <?= Html::a('Create Data Prodi', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah Prodi', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>

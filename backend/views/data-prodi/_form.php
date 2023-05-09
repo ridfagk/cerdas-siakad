@@ -23,13 +23,18 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'nama_prodi')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'deskripsi')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'deskripsi')->textArea(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'visi')->textInput(['maxlength' => true]) ?>
+        <div class="row">
+            <div class="col-md-6">
+                <?= $form->field($model, 'visi')->textArea(['maxlength' => true]) ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'misi')->textArea(['maxlength' => true]) ?>
+            </div>
+        </div>
 
-        <?= $form->field($model, 'misi')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'kompetensi')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'kompetensi')->textArea(['maxlength' => true]) ?>
 
         <div class="row">
             <div class="col-md-4">
