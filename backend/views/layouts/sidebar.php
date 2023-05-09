@@ -41,12 +41,13 @@ use yii\helpers\Html;
                 'items' => [
                     ['label' => 'Dashboard', 'url' => ['site/index'], 'icon' => 'tachometer-alt'],
                     ['label' => 'Data PT', 'url' => ['datapt/index'],'icon' => 'user-circle'],
+                    ['label' => 'Data Prodi', 'url' => ['data-prodi/index'],'icon' => 'user-circle'],
                     ['label' => 'Data Mata Kuliah', 'url' => ['matkul/index'],'icon' => 'file-alt'],
                     [
                             'label' => 'Perkuliahan',
                             'icon' => 'tachometer-alt',
-                            'badge' => '<span class="right badge badge-info">2</span>',
                             'items' => [
+                                ['label' => 'Tahun Akademik', 'url'=>['tahun-akademik/index'], 'icon' => 'calendar'],
                                 ['label' => 'Kelas Kuliah', 'url'=>['kelas-kuliah/index'],'icon' => 'money-bill-wave'],
                                 ['label' => 'Jadwal Kuliah', 'icon' => 'money-bill-wave'],
                                 ['label' => 'Jadwal Ujian', 'icon' => 'calendar-alt'],

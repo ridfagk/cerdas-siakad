@@ -40,7 +40,7 @@ class DataProdi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_prodi', 'kd_prodi', 'nama_prodi', 'nomor_sk', 'nama_pt', 'thn_berdiri', 'alamat_prodi', 'akreditasi', 'deskripsi', 'kompetensi'], 'required'],
+            [['kd_prodi', 'nama_prodi', 'nomor_sk', 'nama_pt', 'thn_berdiri', 'alamat_prodi', 'akreditasi', 'deskripsi', 'kompetensi'], 'required'],
             [['id_prodi'], 'integer'],
             [['kd_prodi', 'nama_prodi', 'nomor_sk', 'telp_prodi', 'email_prodi', 'nama_pt', 'thn_berdiri', 'alamat_prodi', 'akreditasi', 'deskripsi', 'visi', 'misi', 'kompetensi'], 'string', 'max' => 45],
             [['kd_prodi'], 'unique'],
