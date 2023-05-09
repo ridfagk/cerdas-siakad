@@ -42,8 +42,17 @@ use yii\helpers\Html;
                     ['label' => 'Dashboard', 'url' => ['site/index'], 'icon' => 'tachometer-alt'],
                     ['label' => 'Data PT', 'url' => ['datapt/index'],'icon' => 'user-circle'],
                     ['label' => 'Data Mata Kuliah', 'url' => ['matkul/index'],'icon' => 'file-alt'],
-                    ['label' => 'Jadwal Kuliah', 'icon' => 'money-bill-wave'],
-                    ['label' => 'Jadwal Ujian', 'icon' => 'calendar-alt'],
+                    [
+                            'label' => 'Perkuliahan',
+                            'icon' => 'tachometer-alt',
+                            'badge' => '<span class="right badge badge-info">2</span>',
+                            'items' => [
+                                ['label' => 'Kelas Kuliah', 'url'=>['kelas-kuliah/index'],'icon' => 'money-bill-wave'],
+                                ['label' => 'Jadwal Kuliah', 'icon' => 'money-bill-wave'],
+                                ['label' => 'Jadwal Ujian', 'icon' => 'calendar-alt'],
+                            ]
+                    ],
+
                     ['label' => 'Evaluasi', 'icon' => 'file-alt'],
                     ['label' => 'Dosen', 'icon' => 'certificate'],
                     ['label' => 'Mentor', 'icon' => 'file-alt'],

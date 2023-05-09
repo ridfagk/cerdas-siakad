@@ -43,7 +43,7 @@ class KelasKuliah extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_kelas', 'nama_kelas', 'thn_akademik', 'semester', 'sks', 'hari', 'matkul_id', 'prodi_id'], 'required'],
+            [['nama_kelas', 'thn_akademik', 'semester', 'sks', 'hari', 'matkul_id', 'prodi_id'], 'required'],
             [['id_kelas', 'sks'], 'integer'],
             [['jam'], 'safe'],
             [['nama_kelas'], 'string', 'max' => 10],
