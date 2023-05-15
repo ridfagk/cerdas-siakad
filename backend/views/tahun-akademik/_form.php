@@ -9,19 +9,37 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="data-ta-form">
+    <div class="row justify-content-md-LEFT">
+    <div class="col-md-7">
+        <div class="card card-body">
 
-    <?php $form = ActiveForm::begin(); ?>
+            <?php $form = ActiveForm::begin(); ?>
+            
+                
+                <div class="row">
 
-    <?= $form->field($model, 'id_thnakademik')->textInput() ?>
+                    <div class="col-md-3">
+                        <?= $form->field($model, 'kd_ta')->textInput(['maxlength' => true])->label('Kode Akademik') ?>
+                    </div>
 
-    <?= $form->field($model, 'thn_akademik')->textInput(['maxlength' => true]) ?>
+                    <div class="col-md-6">
+                        <?= $form->field($model, 'thn_akademik')->textInput(['maxlength' => true])->label('Tahun Akademik') ?>
+                    </div>
 
-    <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
+                    <div class="col-md-3">
+                        <?= $form->field($model, 'status')->dropDownList([ 'Aktif' => 'Aktif', 'Non Aktif' => 'Non Aktif', ], ['prompt' => '-Pilih-']) ?>
+                        
+                    </div>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                </div>
+
+                <div class="form-group">
+                    <?= Html::submitButton('Simpan Tahun Akademik', ['class' => 'btn btn-primary btn-block']) ?>
+                </div>
+            
+            
+            <?php ActiveForm::end(); ?>
+            </div>
+        </div>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>

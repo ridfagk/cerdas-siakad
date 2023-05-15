@@ -45,13 +45,13 @@ class KelasKuliah extends \yii\db\ActiveRecord
         return [
             [['nama_kelas', 'thn_akademik', 'semester', 'sks', 'hari', 'matkul_id', 'prodi_id'], 'required'],
             [['id_kelas', 'sks'], 'integer'],
-            [['jam'], 'safe'],
+            [['jam_mulai', 'jam_akhir', 'tgl_mulai', 'tgl_akhir'], 'safe'],
             [['nama_kelas'], 'string', 'max' => 10],
             [['thn_akademik', 'semester', 'matkul_id', 'prodi_id'], 'string', 'max' => 15],
             [['hari'], 'string', 'max' => 20],
             [['id_kelas'], 'unique'],
             [['matkul_id'], 'exist', 'skipOnError' => true, 'targetClass' => MataKuliah::class, 'targetAttribute' => ['matkul_id' => 'kd_matkul']],
-            [['prodi_id'], 'exist', 'skipOnError' => true, 'targetClass' => Prodi::class, 'targetAttribute' => ['prodi_id' => 'kd_prodi']],
+            [['prodi_id'], 'exist', 'skipOnError' => true, 'targetClass' => DataProdi::class, 'targetAttribute' => ['prodi_id' => 'kd_prodi']],
         ];
     }
 
@@ -150,7 +150,7 @@ class KelasKuliah extends \yii\db\ActiveRecord
      */
     public function getProdi()
     {
-        return $this->hasOne(Prodi::class, ['kd_prodi' => 'prodi_id']);
+        return $this->hasOne(DataProdi::class, ['kd_prodi' => 'prodi_id']);
     }
 
     /**

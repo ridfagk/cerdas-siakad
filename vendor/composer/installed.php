@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'yiisoft/yii2-app-advanced',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '1f8c1e55bb35fffb1234c2d0884dc2a642e7f08e',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -269,6 +269,26 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../kartik-v/dependent-dropdown',
             'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'kartik-v/php-date-formatter' => array(
+            'pretty_version' => 'v1.3.6',
+            'version' => '1.3.6.0',
+            'reference' => '514a53660b0d69439236fd3cbc3f41512adb00a0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../kartik-v/php-date-formatter',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'kartik-v/yii2-datecontrol' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '88ac2401ce1858b0da98b498197373691953c3d6',
+            'type' => 'yii2-extension',
+            'install_path' => __DIR__ . '/../kartik-v/yii2-datecontrol',
+            'aliases' => array(
+                0 => '1.9.x-dev',
+            ),
             'dev_requirement' => false,
         ),
         'kartik-v/yii2-krajee-base' => array(
@@ -1013,9 +1033,9 @@
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-app-advanced' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '1f8c1e55bb35fffb1234c2d0884dc2a642e7f08e',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

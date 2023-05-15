@@ -4,6 +4,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\file\FileInput;
+use kartik\date\DatePicker;
 
 /** @var yii\web\View $this */
 /** @var backend\models\DataPT $model */
@@ -26,7 +27,18 @@ use kartik\file\FileInput;
 
         <div class="row">
             <div class="col-md-4">
-                <?= $form->field($model, 'tahun_berdiri')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'tahun_berdiri')->widget(DatePicker::classname(), [
+                            'options' => ['placeholder' => Yii::t('app', 'Pilih Tahun')],
+                            'attribute2'=>'to_date',
+                            //'readonly' => true,
+                            //'type' => DatePicker::TYPE_DATE,
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'startView'=>'years',
+                                'minViewMode'=>'years',
+                                'format' => 'yyyy'
+                            ]
+                        ]) ?>
             </div>
             <div class="col-md-4">
                 <?= $form->field($model, 'pendiri')->textInput(['maxlength' => true]) ?>

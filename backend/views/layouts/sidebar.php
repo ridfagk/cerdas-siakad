@@ -35,14 +35,22 @@ use yii\helpers\Html;
         </div> -->
 
         <!-- Sidebar Menu -->
-        <nav class="mt-2">
+        <nav class="mt-2 ">
             <?php
             echo \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
                     ['label' => 'Dashboard', 'url' => ['site/index'], 'icon' => 'tachometer-alt'],
-                    ['label' => 'Data PT', 'url' => ['datapt/index'],'icon' => 'user-circle'],
-                    ['label' => 'Data Prodi', 'url' => ['data-prodi/index'],'icon' => 'user-circle'],
-                    ['label' => 'Data Mata Kuliah', 'url' => ['matkul/index'],'icon' => 'file-alt'],
+                    [
+                        'label' => 'Data PT',
+                        'icon' => 'tachometer-alt',
+                        'items' => [
+                            ['label' => 'Biodata PT', 'url'=>['datapt/index'], 'icon' => 'calendar'],
+                            ['label' => 'Prodi', 'url'=>['data-prodi/index'],'icon' => 'money-bill-wave'],
+                            ['label' => 'Mata Kuliah', 'url' => ['matkul/index'],'icon' => 'file-alt'],
+
+                        ]
+                    ],
+                    
                     [
                             'label' => 'Perkuliahan',
                             'icon' => 'tachometer-alt',

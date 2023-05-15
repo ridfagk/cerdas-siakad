@@ -86,7 +86,7 @@ class Menu extends \yii\widgets\Menu
      * @inheritdoc
      */
     public $options = [
-        'class' => 'nav nav-pills nav-sidebar flex-column',
+        'class' => 'nav nav-pills nav-sidebar flex-column nav-compact nav-child-indent',
         'data-widget' => 'treeview',
         'role' => 'menu',
         'data-accordion' => 'false'

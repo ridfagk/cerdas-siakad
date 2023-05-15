@@ -29,7 +29,7 @@ class DataTA extends \yii\db\ActiveRecord
         return [
             [['thn_akademik'], 'required'],
             [['id_thnakademik'], 'integer'],
-            [['thn_akademik', 'status'], 'string', 'max' => 45],
+            [['thn_akademik', 'kd_ta','status'], 'string', 'max' => 45],
             [['id_thnakademik'], 'unique'],
         ];
     }
@@ -43,6 +43,7 @@ class DataTA extends \yii\db\ActiveRecord
             'id_thnakademik' => 'Id Thnakademik',
             'thn_akademik' => 'Thn Akademik',
             'status' => 'Status',
+            'kd_ta' => 'Kode Akademik'
         ];
     }
 }

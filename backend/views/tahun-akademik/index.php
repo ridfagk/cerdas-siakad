@@ -14,32 +14,36 @@ $this->title = 'Tahun Akademik';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="data-ta-index">
+    <div class="card">
 
-    <p>
-        <?= Html::a('Tambah Tahun Akademik', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+        <div class="card-header">
+            <?= Html::a('Tambah Tahun Akademik', ['create'], ['class' => 'btn btn-success']) ?>
+        </div>
 
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+        <div class="card-body">
+            <?php Pjax::begin(); ?>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
 
-            'id_thnakademik',
-            'thn_akademik',
-            'status',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, DataTA $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id_thnakademik' => $model->id_thnakademik]);
-                 }
-            ],
-        ],
-    ]); ?>
+                    'kd_ta',
+                    'thn_akademik',
+                    'status',
+                    [
+                        'class' => ActionColumn::className(),
+                        'urlCreator' => function ($action, DataTA $model, $key, $index, $column) {
+                            return Url::toRoute([$action, 'id_thnakademik' => $model->id_thnakademik]);
+                        }
+                    ],
+                ],
+            ]); ?>
 
-    <?php Pjax::end(); ?>
+            <?php Pjax::end(); ?>
+        </div>
+    </div>
 
 </div>

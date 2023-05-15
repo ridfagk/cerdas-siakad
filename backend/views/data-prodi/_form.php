@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\date\DatePicker;
 
 /** @var yii\web\View $this */
 /** @var backend\models\DataProdi $model */
@@ -38,7 +39,18 @@ use yii\widgets\ActiveForm;
 
         <div class="row">
             <div class="col-md-4">
-                <?= $form->field($model, 'thn_berdiri')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'thn_berdiri')->widget(DatePicker::classname(), [
+                            'options' => ['placeholder' => Yii::t('app', 'Pilih Tahun')],
+                            'attribute2'=>'to_date',
+                            //'readonly' => true,
+                            //'type' => DatePicker::TYPE_DATE,
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'startView'=>'years',
+                                'minViewMode'=>'years',
+                                'format' => 'yyyy'
+                            ]
+                        ]) ?>
             </div>
             <div class="col-md-4">
                 <?= $form->field($model, 'nomor_sk')->textInput(['maxlength' => true]) ?>

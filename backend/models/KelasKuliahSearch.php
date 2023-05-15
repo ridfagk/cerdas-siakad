@@ -18,7 +18,7 @@ class KelasKuliahSearch extends KelasKuliah
     {
         return [
             [['id_kelas', 'sks'], 'integer'],
-            [['nama_kelas', 'thn_akademik', 'semester', 'hari', 'jam', 'matkul_id', 'prodi_id'], 'safe'],
+            [['nama_kelas', 'thn_akademik', 'semester', 'hari', 'tgl_mulai', 'tgl_akhir', 'jam_mulai', 'jam_akhir', 'matkul_id', 'prodi_id'], 'safe'],
         ];
     }
 
@@ -60,7 +60,7 @@ class KelasKuliahSearch extends KelasKuliah
         $query->andFilterWhere([
             'id_kelas' => $this->id_kelas,
             'sks' => $this->sks,
-            'jam' => $this->jam,
+            
         ]);
 
         $query->andFilterWhere(['like', 'nama_kelas', $this->nama_kelas])

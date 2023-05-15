@@ -18,7 +18,7 @@ class DataTASearch extends DataTA
     {
         return [
             [['id_thnakademik'], 'integer'],
-            [['thn_akademik', 'status'], 'safe'],
+            [['thn_akademik', 'kd_ta', 'status'], 'safe'],
         ];
     }
 

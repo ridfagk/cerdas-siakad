@@ -71,7 +71,7 @@ class TahunAkademikController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_thnakademik' => $model->id_thnakademik]);
+                return $this->redirect(['index']);
             }
         } else {
             $model->loadDefaultValues();
@@ -94,7 +94,7 @@ class TahunAkademikController extends Controller
         $model = $this->findModel($id_thnakademik);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_thnakademik' => $model->id_thnakademik]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
