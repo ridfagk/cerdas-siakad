@@ -162,4 +162,14 @@ class KelasKuliah extends \yii\db\ActiveRecord
     {
         return $this->hasMany(TimKelasKuliah::class, ['kelas_id' => 'id_kelas']);
     }
+
+    /**
+     * Gets query for [[TimKelasKuliahs]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPengajar()
+    {
+        return $this->hasOne(TimKelasKuliah::class, ['id_kelas' => 'kelas_id']);
+    }
 }

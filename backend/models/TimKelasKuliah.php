@@ -37,14 +37,14 @@ class TimKelasKuliah extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_timkelas', 'kelas_id', 'thn_akademik', 'semester', 'dosen_id', 'mentor_id', 'matkul_id', 'nama_pengajar', 'status'], 'required'],
-            [['id_timkelas', 'kelas_id', 'dosen_id', 'mentor_id'], 'integer'],
+            [['kelas_id', 'thn_akademik', 'semester',  'matkul_id'], 'required'],
+            [['id_timkelas', 'kelas_id', ], 'integer'],
             [['thn_akademik', 'semester', 'matkul_id', 'status'], 'string', 'max' => 45],
             [['nama_pengajar'], 'string', 'max' => 250],
             [['id_timkelas'], 'unique'],
             [['kelas_id'], 'exist', 'skipOnError' => true, 'targetClass' => KelasKuliah::class, 'targetAttribute' => ['kelas_id' => 'id_kelas']],
-            [['dosen_id'], 'exist', 'skipOnError' => true, 'targetClass' => Dosen::class, 'targetAttribute' => ['dosen_id' => 'id_dosen']],
-            [['mentor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Mentor::class, 'targetAttribute' => ['mentor_id' => 'id_mentor']],
+            [['pegawai_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pegawai::class, 'targetAttribute' => ['pegawai_id' => 'id_pegawai']],
+            
         ];
     }
 
@@ -58,8 +58,7 @@ class TimKelasKuliah extends \yii\db\ActiveRecord
             'kelas_id' => 'Kelas ID',
             'thn_akademik' => 'Thn Akademik',
             'semester' => 'Semester',
-            'dosen_id' => 'Dosen ID',
-            'mentor_id' => 'Mentor ID',
+            'pegawai_id' => 'Pengajar/Mentor',
             'matkul_id' => 'Matkul ID',
             'nama_pengajar' => 'Nama Pengajar',
             'status' => 'Status',
@@ -71,9 +70,9 @@ class TimKelasKuliah extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDosen()
+    public function getPegawai()
     {
-        return $this->hasOne(Dosen::class, ['id_dosen' => 'dosen_id']);
+        return $this->hasOne(Pegawai::class, ['id_pegawai' => 'pegawai_id']);
     }
 
     /**
@@ -86,13 +85,5 @@ class TimKelasKuliah extends \yii\db\ActiveRecord
         return $this->hasOne(KelasKuliah::class, ['id_kelas' => 'kelas_id']);
     }
 
-    /**
-     * Gets query for [[Mentor]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMentor()
-    {
-        return $this->hasOne(Mentor::class, ['id_mentor' => 'mentor_id']);
-    }
+   
 }

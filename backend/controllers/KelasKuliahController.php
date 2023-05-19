@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-use backend\models\KelasKuliah;
+use backend\models\{KelasKuliah, TimKelasKuliah};
 use backend\models\KelasKuliahSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -53,9 +53,9 @@ class KelasKuliahController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id_kelas)
+    public function actionDetailKelas($id_kelas)
     {
-        return $this->render('view', [
+        return $this->render('detail-kelas', [
             'model' => $this->findModel($id_kelas),
         ]);
     }
@@ -114,6 +114,59 @@ class KelasKuliahController extends Controller
         $this->findModel($id_kelas)->delete();
 
         return $this->redirect(['index']);
+    }
+
+
+    public function actionTimPengajar($id_kelas)
+    {
+        $id_kelas = $_GET['id_kelas'];
+        $model = TimKelasKuliah::find()->where(['kelas_id'=>$id_kelas])->all();
+        $kelas = KelasKuliah::find()->where(['id_kelas'=>$id_kelas])->one();
+
+        return $this->render('tim-pengajar', [
+            'model' => $model,
+            'kelas' => $kelas,
+            'id_kelas' => $id_kelas,
+        ]);
+    }
+
+    public function actionAddPengajar($id_kelas)
+    {
+        $model = new TimKelasKuliah();
+        $id_kelas = $_GET['id_kelas'];
+        
+       
+        if ($this->request->isPost) {
+          
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['tim-pengajar', 'id_kelas' => $id_kelas]);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->renderAjax('add-pengajar', [
+            'model' => $model,
+            'id_kelas' => $id_kelas,
+        ]);
+    }
+
+
+    public function actionPresensi()
+    {
+        $model = new TimKelasKuliah();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id_kelas' => $model->id_kelas]);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->renderAjax('add-mentor', [
+            'model' => $model,
+        ]);
     }
 
     /**

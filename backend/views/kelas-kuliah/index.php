@@ -14,7 +14,7 @@ $this->title = 'Kelas Kuliah';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kelas-kuliah-index">
-
+    
     <p>
         <?= Html::a('Tambah Kelas Kuliah', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -28,21 +28,54 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_kelas',
-            'nama_kelas',
             'thn_akademik',
+            'nama_kelas',
+            ['attribute'=>'matkul_id',
+                'value'=>'matkul.nama_matkul',
+            ],
+            ['attribute'=>'prodi_id',
+                'value'=>'prodi.nama_prodi',
+            ],
+            ['attribute'=>'pengajar',
+                'value'=>'pengajar.pegawai_id',
+            ],
             'semester',
             'sks',
-            //'hari',
+            'hari',
             //'jam',
             //'matkul_id',
-            //'prodi_id',
             [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, KelasKuliah $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id_kelas' => $model->id_kelas]);
-                 }
-            ],
+                'class' => 'yii\grid\ActionColumn',
+                'header' => 'Actions',
+                'headerOptions' => ['style' => 'color:#337ab7'],
+                'template' => '{view}{delete}',
+                'buttons' => [
+                  'view' => function ($url, $model) {
+                      return Html::a('<i class="fas fa-eye"></i>', $url, [
+                                  'title' => Yii::t('app', 'lead-view'),
+                      ]);
+                  },
+
+                  'delete' => function ($url, $model) {
+                      return Html::a('<i class="fas fa-trash"></i>', $url, [
+                                  'title' => Yii::t('app', 'lead-delete'),
+                      ]);
+                  }
+      
+                ],
+                'urlCreator' => function ($action, $model, $key, $index) {
+                  if ($action === 'view') {
+                      $url ='detail-kelas?id_kelas='.$model->id_kelas;
+                      return $url;
+                  }
+      
+                  if ($action === 'delete') {
+                      $url ='detail-kelas?id_kelas='.$model->id_kelas;
+                      return $url;
+                  }
+      
+                }
+                ],
         ],
     ]); ?>
 

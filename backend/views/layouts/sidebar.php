@@ -63,8 +63,7 @@ use yii\helpers\Html;
                     ],
 
                     ['label' => 'Evaluasi', 'icon' => 'file-alt'],
-                    ['label' => 'Dosen', 'icon' => 'certificate'],
-                    ['label' => 'Mentor', 'icon' => 'file-alt'],
+                    ['label' => 'Pegawai', 'url' => ['pegawai/index'], 'icon' => 'certificate'],
                     ['label' => 'Mahasiswa', 'icon' => 'file-export'],
                     ['label' => 'Template Surat', 'url' => ['template-surat/index'] ,'icon' => 'envelope'],
                     ['label' => 'Pengumuman', 'url' => ['pengumuman/index'],'icon' => 'info-circle'],
