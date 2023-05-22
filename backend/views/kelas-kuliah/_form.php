@@ -85,13 +85,19 @@ use backend\models\{DataTA, DataProdi, DataMatkul};
                        ?>
                     </div>
                     <div class="col-md-6">
-                        <?= $form->field($model, 'tgl_akhir')->widget(DatePicker::classname(), [
-                                'options' => ['placeholder' => 'Tanggal Akhir ...'],
+                        <?= 
+                         $form->field($model, 'tgl_akhir')->widget(DateControl::classname(), [
+                            'type'=>DateControl::FORMAT_DATE,
+                            'ajaxConversion'=>false,
+                            'widgetOptions' => [
                                 'pluginOptions' => [
                                     'autoclose' => true,
                                     'startView'=>'years',
                                 ]
-                            ]);?>
+                            ]
+                        ]);
+                        
+                       ?>
                     </div>
                 </div>
                 <div class="row">

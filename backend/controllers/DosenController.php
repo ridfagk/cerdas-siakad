@@ -3,15 +3,15 @@
 namespace backend\controllers;
 
 use backend\models\Pegawai;
-use backend\models\PegawaiSearch;
+use backend\models\DosenSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PegawaiController implements the CRUD actions for Pegawai model.
+ * DosenController implements the CRUD actions for Pegawai model.
  */
-class PegawaiController extends Controller
+class DosenController extends Controller
 {
     /**
      * @inheritDoc
@@ -38,12 +38,13 @@ class PegawaiController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PegawaiSearch();
+        $searchModel = new DosenSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'pagination' => $dataProvider->pagination,
         ]);
     }
 

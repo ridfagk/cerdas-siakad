@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 ?>
 <tr>
-    <td><?= $model->kd_prodi ?>.</td>
+    <td><?= $model->kd_prodi ?></td>
     <td><?= $model->nama_prodi?></td>
     <td><?= $model->nomor_sk?></td>
     <td><?= $model->telp_prodi?></td>

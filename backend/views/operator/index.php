@@ -7,13 +7,15 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /** @var yii\web\View $this */
-/** @var backend\models\PegawaiSearch $searchModel */
+/** @var backend\models\OperatorSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Pegawais';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pegawai-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Create Pegawai', ['create'], ['class' => 'btn btn-success']) ?>

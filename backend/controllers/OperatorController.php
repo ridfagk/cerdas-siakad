@@ -2,16 +2,16 @@
 
 namespace backend\controllers;
 
-use backend\models\DataTA;
-use backend\models\DataTASearch;
+use backend\models\Pegawai;
+use backend\models\OperatorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TahunAkademikController implements the CRUD actions for DataTA model.
+ * OperatorController implements the CRUD actions for Pegawai model.
  */
-class TahunAkademikController extends Controller
+class OperatorController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,47 +32,46 @@ class TahunAkademikController extends Controller
     }
 
     /**
-     * Lists all DataTA models.
+     * Lists all Pegawai models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new DataTASearch();
+        $searchModel = new OperatorSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'pagination' => $dataProvider->pagination,
         ]);
     }
 
     /**
-     * Displays a single DataTA model.
-     * @param int $id_thnakademik Id Thnakademik
+     * Displays a single Pegawai model.
+     * @param int $id_pegawai Id Pegawai
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id_thnakademik)
+    public function actionView($id_pegawai)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id_thnakademik),
+            'model' => $this->findModel($id_pegawai),
         ]);
     }
 
     /**
-     * Creates a new DataTA model.
+     * Creates a new Pegawai model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new DataTA();
+        $model = new Pegawai();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['index']);
+                return $this->redirect(['view', 'id_pegawai' => $model->id_pegawai]);
             }
         } else {
             $model->loadDefaultValues();
@@ -84,18 +83,18 @@ class TahunAkademikController extends Controller
     }
 
     /**
-     * Updates an existing DataTA model.
+     * Updates an existing Pegawai model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id_thnakademik Id Thnakademik
+     * @param int $id_pegawai Id Pegawai
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id_thnakademik)
+    public function actionUpdate($id_pegawai)
     {
-        $model = $this->findModel($id_thnakademik);
+        $model = $this->findModel($id_pegawai);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['view', 'id_pegawai' => $model->id_pegawai]);
         }
 
         return $this->render('update', [
@@ -104,29 +103,29 @@ class TahunAkademikController extends Controller
     }
 
     /**
-     * Deletes an existing DataTA model.
+     * Deletes an existing Pegawai model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id_thnakademik Id Thnakademik
+     * @param int $id_pegawai Id Pegawai
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id_thnakademik)
+    public function actionDelete($id_pegawai)
     {
-        $this->findModel($id_thnakademik)->delete();
+        $this->findModel($id_pegawai)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the DataTA model based on its primary key value.
+     * Finds the Pegawai model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id_thnakademik Id Thnakademik
-     * @return DataTA the loaded model
+     * @param int $id_pegawai Id Pegawai
+     * @return Pegawai the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id_thnakademik)
+    protected function findModel($id_pegawai)
     {
-        if (($model = DataTA::findOne(['id_thnakademik' => $id_thnakademik])) !== null) {
+        if (($model = Pegawai::findOne(['id_pegawai' => $id_pegawai])) !== null) {
             return $model;
         }
 

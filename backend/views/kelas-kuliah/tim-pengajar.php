@@ -18,12 +18,20 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $this->render('sidemenu') ?>
         </div>
         <div class="col-md-10 card card-body">
-            <p style="text-align:right">
-                <a class="btn btn-primary btn-sm custom_buttona text-white m-1" value="<?= Url::to(['add-pengajar','id_kelas' => $id_kelas]) ?>">
-                    <b><i class="fas fa-plus"></i> Tambah Pengajar</b>
-                </a>
-               
-            </p>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Tim Pengajar</h4>
+                </div>
+                <div class="col-md-6">
+                    <p style="text-align:right">
+                        <a class="btn btn-primary btn-sm custom_buttona text-white m-1" value="<?= Url::to(['add-pengajar','id_kelas' => $id_kelas]) ?>">
+                            <b><i class="fas fa-plus"></i> Tambah Pengajar</b>
+                        </a>
+                    
+                    </p>
+                </div>
+            </div>
+            
 
             <div class="row">
                 <div class="col-md-6">

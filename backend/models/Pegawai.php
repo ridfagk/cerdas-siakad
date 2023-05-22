@@ -78,7 +78,7 @@ class Pegawai extends \yii\db\ActiveRecord
             'tgl_masuk' => 'Tgl Masuk',
             'jabatan' => 'Jabatan',
             'pendidikan_akhir' => 'Pendidikan Akhir',
-            'status_ikatankerja' => 'Status Ikatankerja',
+            'status_ikatankerja' => 'Status Ikatan Kerja',
             'status_aktif' => 'Status Aktif',
             'foto' => 'Foto',
         ];

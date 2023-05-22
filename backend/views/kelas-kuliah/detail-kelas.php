@@ -18,18 +18,26 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $this->render('sidemenu') ?>
         </div>
         <div class="col-md-10 card card-body">
-            <p>
-                <a class="btn btn-primary btn-sm custom_buttona text-white m-1" value="<?= Url::to(['update','id_kelas' => $id_kelas]) ?>">
-                    <b>Update</b>
-                </a>
-                <?= Html::a('Delete', ['delete', 'id_kelas' => $model->id_kelas], [
-                    'class' => 'btn btn-danger btn-sm',
-                    'data' => [
-                        'confirm' => 'Are you sure you want to delete this item?',
-                        'method' => 'post',
-                    ],
-                ]) ?>
-            </p>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Detail Kelas</h4>
+                </div>
+                <div class="col-md-6">
+                    <p style="text-align:right">
+                        <a class="btn btn-warning btn-sm custom_buttona m-1" value="<?= Url::to(['update','id_kelas' => $id_kelas]) ?>">
+                            <b>Update</b>
+                        </a>
+                        <?= Html::a('Delete', ['delete', 'id_kelas' => $model->id_kelas], [
+                            'class' => 'btn btn-danger btn-sm',
+                            'data' => [
+                                'confirm' => 'Are you sure you want to delete this item?',
+                                'method' => 'post',
+                            ],
+                        ]) ?>
+                    </p>
+                </div>
+            </div>
+           
             <div id="profil-page" style="display:block">
                 <div class="row">
                     <div class="col-md-6">

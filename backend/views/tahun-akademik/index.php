@@ -4,8 +4,9 @@ use backend\models\DataTA;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
+use yii\widgets\{Pjax, ListView};
 use yii\grid\GridView;
-use yii\widgets\Pjax;
+use yii\bootstrap5\LinkPager;
 /** @var yii\web\View $this */
 /** @var backend\models\DataTASearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -14,36 +15,58 @@ $this->title = 'Tahun Akademik';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="data-ta-index">
-    <div class="card">
-
-        <div class="card-header">
-            <?= Html::a('Tambah Tahun Akademik', ['create'], ['class' => 'btn btn-success']) ?>
+    
+    <?php Pjax::begin(); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+        <div class="card">
+            <div class="card-header" style="text-align:right">
+                <?= Html::a('<i class="fas fa-plus-circle"></i> Tambah Tahun Akademik', ['create'], ['class' => 'btn btn-primary btn-sm']) ?>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Kode TA</th>
+                        <th>Tahun Akademik</th>
+                        <th>Status</th>
+                        <th >Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?= ListView::widget([
+                                        'options' => ['class' => 'list-view'],
+                                        'dataProvider' => $dataProvider,
+                                        
+                                        'itemView' => '_ta_item',
+                                        'pager' => [
+                                            'options'=>['class'=>'pagination justify-content-center pagination-sm','style'=>'display:none'],   // set clas name used in ui list of pagination
+                                        ],      
+                            ]) ?>
+                        
+                    </tbody>
+                </table>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer clearfix">
+                <?= 
+                    LinkPager::widget([
+                        'pagination' => $pagination,
+                        'listOptions'=>['class'=>'justify-content-center pagination pagination-sm'],
+                        'prevPageLabel' => '<i class="fas fa-angle-left"></i>',   // Set the label for the "previous" page button 
+                        'nextPageLabel' => '<i class="fas fa-angle-right"></i>',   // Set the label for the "next" page button
+                        'firstPageLabel'=>'<i class="fas fa-angle-double-left"></i>',   // Set the label for the "first" page button
+                        'lastPageLabel'=>'<i class="fas fa-angle-double-right"></i>',    // Set the label for the "last" page button
+                        'maxButtonCount'=>5,
+                        'options' => [
+                            'class' => 'ip-mosaic__pagin-list',
+                        ],
+                    ]); 
+                ?>
+                </div>
         </div>
 
-        <div class="card-body">
-            <?php Pjax::begin(); ?>
-            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-            <?= GridView::widget([
-                'dataProvider' => $dataProvider,
-                'filterModel' => $searchModel,
-                'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-
-                    'kd_ta',
-                    'thn_akademik',
-                    'status',
-                    [
-                        'class' => ActionColumn::className(),
-                        'urlCreator' => function ($action, DataTA $model, $key, $index, $column) {
-                            return Url::toRoute([$action, 'id_thnakademik' => $model->id_thnakademik]);
-                        }
-                    ],
-                ],
-            ]); ?>
-
-            <?php Pjax::end(); ?>
-        </div>
-    </div>
+    <?php Pjax::end(); ?>
+        
 
 </div>

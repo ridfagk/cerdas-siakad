@@ -1,6 +1,6 @@
 <?php
 
-use backend\models\KelasKuliah;
+use backend\models\Pegawai;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -8,34 +8,35 @@ use yii\widgets\{Pjax, ListView};
 use yii\grid\GridView;
 use yii\bootstrap5\LinkPager;
 /** @var yii\web\View $this */
-/** @var backend\models\KelasKuliahSearch $searchModel */
+/** @var backend\models\DosenSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Kelas Kuliah';
+$this->title = 'Dosen';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="kelas-kuliah-index">
-    
+<div class="pegawai-index">
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
     <div class="card">
         <div class="card-header" style="text-align:right">
-            <?= Html::a('<i class="fas fa-plus-circle"></i> Tambah Kelas', ['create'], ['class' => 'btn btn-primary btn-sm']) ?>
+            <?= Html::a('<i class="fas fa-plus-circle"></i> Tambah Dosen', ['create'], ['class' => 'btn btn-primary btn-sm']) ?>
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive">
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>TA</th>
-                    <th>Nama Kelas</th>
-                    <th>Mata Kuliah</th>
-                    <th>Prodi</th>
-                    <th>Pengajar</th>
-                    <th>Semester</th>
-                    <th>SKS</th>
-                    <th>Hari</th>
+                    <th>nip</th>
+                    <th>nidn</th>
+                    <th>Nama Dosen</th>
+                    <th>Jabatan</th>
+                    <th>Email</th>
+                    <th>No Telp</th>
+                    <th>Tggl Masuk</th>
+                    <th>Status Ikatan Kerja</th>
+                    <th>Status</th>
                     <th width="10%">Action</th>
                 </tr>
                 </thead>
@@ -44,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'options' => ['class' => 'list-view'],
                                     'dataProvider' => $dataProvider,
                                     
-                                    'itemView' => '_kelas_item',
+                                    'itemView' => '_dosen_item',
                                     'pager' => [
                                         'options'=>['class'=>'pagination justify-content-center pagination-sm','style'=>'display:none'],   // set clas name used in ui list of pagination
                                     ],      
@@ -70,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]); 
             ?>
             </div>
-    </div>
+        </div>
 
     <?php Pjax::end(); ?>
 

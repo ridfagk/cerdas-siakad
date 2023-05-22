@@ -42,32 +42,32 @@ use yii\helpers\Html;
                     ['label' => 'Dashboard', 'url' => ['site/index'], 'icon' => 'tachometer-alt'],
                     [
                         'label' => 'Data PT',
-                        'icon' => 'tachometer-alt',
+                        'icon' => 'university',
                         'items' => [
-                            ['label' => 'Biodata PT', 'url'=>['datapt/index'], 'icon' => 'calendar'],
-                            ['label' => 'Prodi', 'url'=>['data-prodi/index'],'icon' => 'money-bill-wave'],
-                            ['label' => 'Mata Kuliah', 'url' => ['matkul/index'],'icon' => 'file-alt'],
+                            ['label' => 'Biodata PT', 'url'=>['datapt/index'], 'icon' => 'bullseye'],
+                            ['label' => 'Prodi', 'url'=>['data-prodi/index'],'icon' => 'bullseye'],
+                            ['label' => 'Mata Kuliah', 'url' => ['matkul/index'],'icon' => 'bullseye'],
 
                         ]
                     ],
                     
                     [
                             'label' => 'Perkuliahan',
-                            'icon' => 'tachometer-alt',
+                            'icon' => 'graduation-cap',
                             'items' => [
-                                ['label' => 'Tahun Akademik', 'url'=>['tahun-akademik/index'], 'icon' => 'calendar'],
-                                ['label' => 'Kelas Kuliah', 'url'=>['kelas-kuliah/index'],'icon' => 'money-bill-wave'],
-                                ['label' => 'Jadwal Kuliah', 'icon' => 'money-bill-wave'],
-                                ['label' => 'Jadwal Ujian', 'icon' => 'calendar-alt'],
+                                ['label' => 'Tahun Akademik', 'url'=>['tahun-akademik/index'], 'icon' => 'bullseye'],
+                                ['label' => 'Kelas Kuliah', 'url'=>['kelas-kuliah/index'],'icon' => 'bullseye'],
+                                ['label' => 'Jadwal Kuliah', 'icon' => 'bullseye'],
+                                ['label' => 'Jadwal Ujian', 'icon' => 'bullseye'],
                             ]
                     ],
                     [
                         'label' => 'Pegawai',
-                        'icon' => 'tachometer-alt',
+                        'icon' => 'user-tie',
                         'items' => [
-                            ['label' => 'Dosen', 'url' => ['dosen/index'], 'icon' => 'certificate'],
-                            ['label' => 'Mentor', 'url' => ['mentor/index'], 'icon' => 'certificate'],
-                            ['label' => 'Operator', 'url' => ['operator/index'], 'icon' => 'certificate'],
+                            ['label' => 'Dosen', 'url' => ['dosen/index'], 'icon' => 'bullseye'],
+                            ['label' => 'Mentor', 'url' => ['mentor/index'], 'icon' => 'bullseye'],
+                            ['label' => 'Operator', 'url' => ['operator/index'], 'icon' => 'bullseye'],
                         ]
                     ],
 

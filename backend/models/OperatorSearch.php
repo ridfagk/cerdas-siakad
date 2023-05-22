@@ -7,9 +7,9 @@ use yii\data\ActiveDataProvider;
 use backend\models\Pegawai;
 
 /**
- * PegawaiSearch represents the model behind the search form of `backend\models\Pegawai`.
+ * OperatorSearch represents the model behind the search form of `backend\models\Pegawai`.
  */
-class PegawaiSearch extends Pegawai
+class OperatorSearch extends Pegawai
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class PegawaiSearch extends Pegawai
      */
     public function search($params)
     {
-        $query = Pegawai::find();
+        $query = Pegawai::find()->where(['jabatan'=>'Operator']);
 
         // add conditions that should always apply here
 

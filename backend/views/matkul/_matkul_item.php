@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 ?>
 <tr>
-    <td><?= $model->kd_matkul ?>.</td>
+    <td><?= $model->kd_matkul ?></td>
     <td><?= $model->nama_matkul?></td>
     <td><?= $model->semester?></td>
     <td><?= $model->sks?></td>
