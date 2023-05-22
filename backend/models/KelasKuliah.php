@@ -168,8 +168,8 @@ class KelasKuliah extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getPengajar()
+    public function getDosen()
     {
-        return $this->hasOne(TimKelasKuliah::class, ['id_kelas' => 'kelas_id']);
+        return $this->hasOne(Pegawai::class, ['id_pegawai' => 'pegawai_id']);
     }
 }

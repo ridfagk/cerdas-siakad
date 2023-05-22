@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use Yii;
 use backend\models\{KelasKuliah, TimKelasKuliah};
 use backend\models\KelasKuliahSearch;
 use yii\web\Controller;
@@ -31,6 +32,7 @@ class KelasKuliahController extends Controller
         );
     }
 
+
     /**
      * Lists all KelasKuliah models.
      *
@@ -53,10 +55,25 @@ class KelasKuliahController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
+
+
     public function actionDetailKelas($id_kelas)
-    {
+    { 
+       $id_kelas = $_GET['id_kelas'];
+        $cekkelas = KelasKuliah::find()->where(['id_kelas'=>$id_kelas])->one();
+
+        if (!empty($cekkelas)) {
+
+            $model = KelasKuliah::find()->where(['id_kelas'=>$id_kelas])->one();
+            
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['detail-kelas']);
+            }
+        } 
+
         return $this->render('detail-kelas', [
-            'model' => $this->findModel($id_kelas),
+            'model' => $model,
+            'id_kelas' => $id_kelas,
         ]);
     }
 
@@ -94,10 +111,10 @@ class KelasKuliahController extends Controller
         $model = $this->findModel($id_kelas);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_kelas' => $model->id_kelas]);
+            return $this->redirect(['detail-kelas', 'id_kelas' => $model->id_kelas]);
         }
 
-        return $this->render('update', [
+        return $this->renderAjax('update', [
             'model' => $model,
         ]);
     }

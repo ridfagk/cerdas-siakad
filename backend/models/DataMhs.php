@@ -52,7 +52,7 @@ class DataMhs extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_mahasiswa', 'nim', 'nama_mahasiswa', 'no_telp', 'tempat_lahir', 'tgl_lahir', 'agama', 'jenis_kelamin', 'email', 'tgl_masuk', 'prodi_id', 'angkatan', 'status_akademis'], 'required'],
+            [['nim', 'nama_mahasiswa', 'no_telp', 'tempat_lahir', 'tgl_lahir', 'agama', 'jenis_kelamin', 'email', 'tgl_masuk', 'prodi_id', 'angkatan', 'status_akademis'], 'required'],
             [['id_mahasiswa'], 'integer'],
             [['tgl_lahir'], 'safe'],
             [['foto'], 'string'],

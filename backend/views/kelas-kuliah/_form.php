@@ -50,13 +50,13 @@ use backend\models\{DataTA, DataProdi, DataMatkul};
                                         ]); 
                 ?>
                <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <?= $form->field($model, 'semester')->textInput(['type' => 'number'],['maxlength' => true]) ?>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <?= $form->field($model, 'sks')->textInput(['type' => 'number']) ?>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <?= $form->field($model,  'hari')->widget(Select2::classname(), [
                                             'data' => ['Senin'=>'Senin', 'Selasa'=>'Selasa', 'Rabu'=>'Rabu', 'Kamis'=>'Kamis', 'Jumat'=>'Jumat', 'Sabtu'=>'Sabtu', 'Minggu'=>'Minggu'],
                                             'hideSearch' => true,

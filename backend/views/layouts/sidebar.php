@@ -61,10 +61,19 @@ use yii\helpers\Html;
                                 ['label' => 'Jadwal Ujian', 'icon' => 'calendar-alt'],
                             ]
                     ],
+                    [
+                        'label' => 'Pegawai',
+                        'icon' => 'tachometer-alt',
+                        'items' => [
+                            ['label' => 'Dosen', 'url' => ['dosen/index'], 'icon' => 'certificate'],
+                            ['label' => 'Mentor', 'url' => ['mentor/index'], 'icon' => 'certificate'],
+                            ['label' => 'Operator', 'url' => ['operator/index'], 'icon' => 'certificate'],
+                        ]
+                    ],
 
                     ['label' => 'Evaluasi', 'icon' => 'file-alt'],
-                    ['label' => 'Pegawai', 'url' => ['pegawai/index'], 'icon' => 'certificate'],
-                    ['label' => 'Mahasiswa', 'icon' => 'file-export'],
+                    
+                    ['label' => 'Mahasiswa', 'url' => ['mahasiswa/index'], 'icon' => 'file-export'],
                     ['label' => 'Template Surat', 'url' => ['template-surat/index'] ,'icon' => 'envelope'],
                     ['label' => 'Pengumuman', 'url' => ['pengumuman/index'],'icon' => 'info-circle'],
                     // [

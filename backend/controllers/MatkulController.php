@@ -44,6 +44,7 @@ class MatkulController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'pagination' => $dataProvider->pagination,
         ]);
     }
 
@@ -94,7 +95,7 @@ class MatkulController extends Controller
         $model = $this->findModel($id_matkul);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_matkul' => $model->id_matkul]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

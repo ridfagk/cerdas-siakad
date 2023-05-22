@@ -2,16 +2,16 @@
 
 namespace backend\controllers;
 
-use backend\models\DataProdi;
-use backend\models\DataProdiSearch;
+use backend\models\DataMhs;
+use backend\models\DataMhsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DataProdiController implements the CRUD actions for DataProdi model.
+ * MahasiswaController implements the CRUD actions for DataMhs model.
  */
-class DataProdiController extends Controller
+class MahasiswaController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,47 +32,46 @@ class DataProdiController extends Controller
     }
 
     /**
-     * Lists all DataProdi models.
+     * Lists all DataMhs models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new DataProdiSearch();
+        $searchModel = new DataMhsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'pagination' => $dataProvider->pagination,
         ]);
     }
 
     /**
-     * Displays a single DataProdi model.
-     * @param int $id_prodi Id Prodi
+     * Displays a single DataMhs model.
+     * @param int $id_mahasiswa Id Mahasiswa
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id_prodi)
+    public function actionView($id_mahasiswa)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id_prodi),
+            'model' => $this->findModel($id_mahasiswa),
         ]);
     }
 
     /**
-     * Creates a new DataProdi model.
+     * Creates a new DataMhs model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new DataProdi();
+        $model = new DataMhs();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_prodi' => $model->id_prodi]);
+                return $this->redirect(['view', 'id_mahasiswa' => $model->id_mahasiswa]);
             }
         } else {
             $model->loadDefaultValues();
@@ -84,18 +83,18 @@ class DataProdiController extends Controller
     }
 
     /**
-     * Updates an existing DataProdi model.
+     * Updates an existing DataMhs model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id_prodi Id Prodi
+     * @param int $id_mahasiswa Id Mahasiswa
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id_prodi)
+    public function actionUpdate($id_mahasiswa)
     {
-        $model = $this->findModel($id_prodi);
+        $model = $this->findModel($id_mahasiswa);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['view', 'id_mahasiswa' => $model->id_mahasiswa]);
         }
 
         return $this->render('update', [
@@ -104,29 +103,29 @@ class DataProdiController extends Controller
     }
 
     /**
-     * Deletes an existing DataProdi model.
+     * Deletes an existing DataMhs model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id_prodi Id Prodi
+     * @param int $id_mahasiswa Id Mahasiswa
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id_prodi)
+    public function actionDelete($id_mahasiswa)
     {
-        $this->findModel($id_prodi)->delete();
+        $this->findModel($id_mahasiswa)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the DataProdi model based on its primary key value.
+     * Finds the DataMhs model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id_prodi Id Prodi
-     * @return DataProdi the loaded model
+     * @param int $id_mahasiswa Id Mahasiswa
+     * @return DataMhs the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id_prodi)
+    protected function findModel($id_mahasiswa)
     {
-        if (($model = DataProdi::findOne(['id_prodi' => $id_prodi])) !== null) {
+        if (($model = DataMhs::findOne(['id_mahasiswa' => $id_mahasiswa])) !== null) {
             return $model;
         }
 

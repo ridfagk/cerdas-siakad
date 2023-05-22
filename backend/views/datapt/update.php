@@ -19,9 +19,9 @@ $this->params['breadcrumbs'][] = 'Update';
                 <div class="card card-body">
                     <center>
                         <?php if($model->logo_pt == ''){?>
-                            <?= Html::img('@imageurl/frontend/web/img/univ.png',['class' => 'img-circle mb-2','width' => '150'])?><br>
+                            <?= Html::img('@imageurl/frontend/web/img/univ.png',['width' => '150'])?><br>
                         <?php } else { ?>
-                            <?= Html::img('@imageurl/backend/web/img/'.$model->logo_pt,['class' => 'img-circle mb-2','width' => '150'])?><br>
+                            <?= Html::img('@imageurl/backend/web/img/'.$model->logo_pt,['width' => '150'])?><br>
                         <?php } ?>
                         <h5><?= $model->nama_pt?></h5>
                         <a class="btn btn-primary modalLogo mt-2" value="<?= Url::to(['addlogo']) ?>"><i class="fas fa-camera">&nbsp;</i> Upload Logo PT</a>

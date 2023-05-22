@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>'prodi.nama_prodi',
             ],
             ['attribute'=>'pengajar',
-                'value'=>'pengajar.pegawai_id',
+                'value'=>'dosen.pegawai_id',
             ],
             'semester',
             'sks',
