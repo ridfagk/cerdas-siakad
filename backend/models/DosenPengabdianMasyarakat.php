@@ -34,11 +34,11 @@ class DosenPengabdianMasyarakat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['dosen_id', 'judul_pengabdian', 'tgl_pengabdian', 'lokasi', 'penjelasan'], 'required'],
-            [['dosen_id'], 'integer'],
+            [['pegawai_id', 'judul_pengabdian', 'tgl_pengabdian', 'lokasi', 'penjelasan'], 'required'],
+            [['pegawai_id'], 'integer'],
             [['tgl_pengabdian'], 'safe'],
             [['judul_pengabdian', 'lokasi', 'mitra', 'mahasiswa_terlibat', 'penjelasan'], 'string', 'max' => 45],
-            [['dosen_id'], 'exist', 'skipOnError' => true, 'targetClass' => Dosen::class, 'targetAttribute' => ['dosen_id' => 'id_dosen']],
+            [['pegawai_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pegawai::class, 'targetAttribute' => ['pegawai_id' => 'id_pegawai']],
         ];
     }
 
@@ -49,7 +49,7 @@ class DosenPengabdianMasyarakat extends \yii\db\ActiveRecord
     {
         return [
             'id_pengabdian' => 'Id Pengabdian',
-            'dosen_id' => 'Dosen ID',
+            'pegawai_id' => 'Dosen ID',
             'judul_pengabdian' => 'Judul Pengabdian',
             'tgl_pengabdian' => 'Tgl Pengabdian',
             'lokasi' => 'Lokasi',
@@ -64,8 +64,8 @@ class DosenPengabdianMasyarakat extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDosen()
+    public function getPegawai()
     {
-        return $this->hasOne(Dosen::class, ['id_dosen' => 'dosen_id']);
+        return $this->hasOne(Pegawai::class, ['id_pegawai' => 'pegawai_id']);
     }
 }
