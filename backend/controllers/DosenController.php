@@ -181,6 +181,27 @@ class DosenController extends Controller
         ]);
     }
 
+    public function actionAddPengabdian($id_pegawai)
+    {
+        $model = new DosenPengabdianMasyarakat();
+        $id_pegawai = $_GET['id_pegawai'];
+        
+       
+        if ($this->request->isPost) {
+          
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id_pegawai' => $id_pegawai]);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->renderAjax('add-pengabdian', [
+            'model' => $model,
+            'id_pegawai' => $id_pegawai,
+        ]);
+    }
+
     /**
      * Finds the Pegawai model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

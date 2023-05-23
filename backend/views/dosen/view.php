@@ -104,11 +104,17 @@ $js=<<<js
         
         });});
 
-        $(function(){
-            $('.custom_buttonb').click(function(){
-                $('#modalViewb').modal('show').find('#modalContentViewb').load($(this).attr('value'));
-            
-            });});
+    $(function(){
+        $('.custom_buttonb').click(function(){
+            $('#modalViewb').modal('show').find('#modalContentViewb').load($(this).attr('value'));
+        
+        });});
+
+    $(function(){
+        $('.custom_buttonc').click(function(){
+            $('#modalViewc').modal('show').find('#modalContentViewc').load($(this).attr('value'));
+        
+        });});
 
 js;
 $this->registerJs($js);
@@ -119,6 +125,10 @@ $this->registerJs($js);
 
     Modal::begin(['id'=>'modalViewb', 'title'=>'Tambah Riwayat Pendidikan','size'=>'modal-md']);
     echo "<div id='modalContentViewb'></div>";
+    Modal::end();
+
+    Modal::begin(['id'=>'modalViewc', 'title'=>'Tambah Pengabdian Masyarakat','size'=>'modal-md']);
+    echo "<div id='modalContentViewc'></div>";
     Modal::end();
     
    
