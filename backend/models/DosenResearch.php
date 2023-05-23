@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "research_interest".
  *
  * @property int $id_rsch
- * @property int $dosen_id
+ * @property int $pegawai_id
  * @property string $judul_research
  * @property string $penjelasan
  * @property string $tahun_srch
@@ -32,11 +32,11 @@ class DosenResearch extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_rsch', 'dosen_id', 'judul_research', 'penjelasan', 'tahun_srch', 'jenis_srch'], 'required'],
-            [['id_rsch', 'dosen_id'], 'integer'],
+            [['pegawai_id', 'judul_research', 'penjelasan', 'tahun_srch', 'jenis_srch'], 'required'],
+            [['id_rsch', 'pegawai_id'], 'integer'],
             [['judul_research', 'penjelasan', 'tahun_srch', 'jenis_srch'], 'string', 'max' => 45],
             [['id_rsch'], 'unique'],
-            [['dosen_id'], 'exist', 'skipOnError' => true, 'targetClass' => Dosen::class, 'targetAttribute' => ['dosen_id' => 'id_dosen']],
+            [['pegawai_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pegawai::class, 'targetAttribute' => ['pegawai_id' => 'id_pegawai']],
         ];
     }
 
@@ -47,7 +47,7 @@ class DosenResearch extends \yii\db\ActiveRecord
     {
         return [
             'id_rsch' => 'Id Rsch',
-            'dosen_id' => 'Dosen ID',
+            'pegawai_id' => 'Dosen ID',
             'judul_research' => 'Judul Research',
             'penjelasan' => 'Penjelasan',
             'tahun_srch' => 'Tahun Srch',
@@ -60,8 +60,8 @@ class DosenResearch extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDosen()
+    public function getPegawai()
     {
-        return $this->hasOne(Dosen::class, ['id_dosen' => 'dosen_id']);
+        return $this->hasOne(Pegawai::class, ['id_pegawai' => 'pegawai_id']);
     }
 }

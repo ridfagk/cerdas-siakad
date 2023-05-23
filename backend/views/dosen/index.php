@@ -31,10 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     <th>nip</th>
                     <th>nidn</th>
                     <th>Nama Dosen</th>
-                    <th>Jabatan</th>
                     <th>Email</th>
                     <th>No Telp</th>
                     <th>Tggl Masuk</th>
+                    <th>Jabatan</th>
                     <th>Status Ikatan Kerja</th>
                     <th>Status</th>
                     <th width="10%">Action</th>

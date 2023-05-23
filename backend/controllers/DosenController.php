@@ -2,11 +2,12 @@
 
 namespace backend\controllers;
 
-use backend\models\Pegawai;
+use backend\models\{Pegawai, RiwayatPendPegawai, DosenResearch, DosenPengabdianMasyarakat};
 use backend\models\DosenSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * DosenController implements the CRUD actions for Pegawai model.
@@ -56,8 +57,29 @@ class DosenController extends Controller
      */
     public function actionView($id_pegawai)
     {
+        $pendidikan = new ActiveDataProvider([
+            'query' => RiwayatPendPegawai::find()->where(['pegawai_id'=>$id_pegawai])->orderBy('id_rwytpegawai DESC'),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+        $research = new ActiveDataProvider([
+            'query' => DosenResearch::find()->where(['pegawai_id'=>$id_pegawai])->orderBy('id_rsch DESC'),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+        $pengabdian = new ActiveDataProvider([
+            'query' => DosenPengabdianMasyarakat::find()->where(['pegawai_id'=>$id_pegawai])->orderBy('id_pengabdian DESC'),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
         return $this->render('view', [
             'model' => $this->findModel($id_pegawai),
+            'pendidikan' => $pendidikan,
+            'research' => $research,
+            'pengabdian' => $pengabdian,
         ]);
     }
 
@@ -115,6 +137,48 @@ class DosenController extends Controller
         $this->findModel($id_pegawai)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionAddPendidikan($id_pegawai)
+    {
+        $model = new RiwayatPendPegawai();
+        $id_pegawai = $_GET['id_pegawai'];
+        
+       
+        if ($this->request->isPost) {
+          
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id_pegawai' => $id_pegawai]);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->renderAjax('add-pendidikan', [
+            'model' => $model,
+            'id_pegawai' => $id_pegawai,
+        ]);
+    }
+
+    public function actionAddResearch($id_pegawai)
+    {
+        $model = new DosenResearch();
+        $id_pegawai = $_GET['id_pegawai'];
+        
+       
+        if ($this->request->isPost) {
+          
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id_pegawai' => $id_pegawai]);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->renderAjax('add-research', [
+            'model' => $model,
+            'id_pegawai' => $id_pegawai,
+        ]);
     }
 
     /**

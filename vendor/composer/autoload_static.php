@@ -43,12 +43,14 @@ class ComposerStaticInite85a5058bf62d904eac6b06b8ac6c1e4
             'kartik\\typeahead\\' => 17,
             'kartik\\touchspin\\' => 17,
             'kartik\\time\\' => 12,
+            'kartik\\tabs\\' => 12,
             'kartik\\switchinput\\' => 19,
             'kartik\\spinner\\' => 15,
             'kartik\\sidenav\\' => 15,
             'kartik\\select2\\' => 15,
             'kartik\\rating\\' => 14,
             'kartik\\range\\' => 13,
+            'kartik\\plugins\\tabs\\' => 20,
             'kartik\\plugins\\fileinput\\' => 25,
             'kartik\\plugins\\depdrop\\' => 23,
             'kartik\\plugins\\dateformatter\\' => 29,
@@ -62,6 +64,7 @@ class ComposerStaticInite85a5058bf62d904eac6b06b8ac6c1e4
             'kartik\\datecontrol\\' => 19,
             'kartik\\date\\' => 12,
             'kartik\\color\\' => 13,
+            'kartik\\bs5dropdown\\' => 19,
             'kartik\\base\\' => 12,
             'kartik\\alert\\' => 13,
             'kartik\\affix\\' => 13,
@@ -191,6 +194,10 @@ class ComposerStaticInite85a5058bf62d904eac6b06b8ac6c1e4
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-timepicker/src',
         ),
+        'kartik\\tabs\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-tabs-x/src',
+        ),
         'kartik\\switchinput\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-switchinput',
@@ -214,6 +221,10 @@ class ComposerStaticInite85a5058bf62d904eac6b06b8ac6c1e4
         'kartik\\range\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-rangeinput/src',
+        ),
+        'kartik\\plugins\\tabs\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/bootstrap-tabs-x',
         ),
         'kartik\\plugins\\fileinput\\' => 
         array (
@@ -266,6 +277,10 @@ class ComposerStaticInite85a5058bf62d904eac6b06b8ac6c1e4
         'kartik\\color\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-colorinput/src',
+        ),
+        'kartik\\bs5dropdown\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-bootstrap5-dropdown/src',
         ),
         'kartik\\base\\' => 
         array (

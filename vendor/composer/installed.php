@@ -3,7 +3,7 @@
         'name' => 'yiisoft/yii2-app-advanced',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'fd3577a52cfde6772e651c040f71e17ca049f3b4',
+        'reference' => '39992215cc0335ef4c38f1c9633543c153238b4e',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -262,6 +262,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'kartik-v/bootstrap-tabs-x' => array(
+            'pretty_version' => 'v1.3.5',
+            'version' => '1.3.5.0',
+            'reference' => '12e5eeceda5ecbdf1bc7e429c4cea69c0e0b5267',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../kartik-v/bootstrap-tabs-x',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'kartik-v/dependent-dropdown' => array(
             'pretty_version' => 'v1.4.9',
             'version' => '1.4.9.0',
@@ -278,6 +287,17 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../kartik-v/php-date-formatter',
             'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'kartik-v/yii2-bootstrap5-dropdown' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '459e4c06c64e49f89ac372ce7c2cabb961f56ec9',
+            'type' => 'yii2-extension',
+            'install_path' => __DIR__ . '/../kartik-v/yii2-bootstrap5-dropdown',
+            'aliases' => array(
+                0 => '1.0.x-dev',
+            ),
             'dev_requirement' => false,
         ),
         'kartik-v/yii2-datecontrol' => array(
@@ -318,6 +338,17 @@
             'type' => 'yii2-extension',
             'install_path' => __DIR__ . '/../kartik-v/yii2-krajee-base',
             'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'kartik-v/yii2-tabs-x' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '20e2a2b41ca43e09574caab408004e5ac4e00a7d',
+            'type' => 'yii2-extension',
+            'install_path' => __DIR__ . '/../kartik-v/yii2-tabs-x',
+            'aliases' => array(
+                0 => '1.2.x-dev',
+            ),
             'dev_requirement' => false,
         ),
         'kartik-v/yii2-widget-activeform' => array(
@@ -1055,7 +1086,7 @@
         'yiisoft/yii2-app-advanced' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'fd3577a52cfde6772e651c040f71e17ca049f3b4',
+            'reference' => '39992215cc0335ef4c38f1c9633543c153238b4e',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
