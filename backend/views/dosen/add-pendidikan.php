@@ -30,9 +30,30 @@ $model->pegawai_id = $idpegawai;
             <?= $form->field($model, 'jenjang_pendidikan')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'nama_institusi')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'prodi')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'waktu_pendidikan')->textInput(['maxlength' => true]) ?>
-                        
-               
+            <?= $form->field($model, 'tahun_mulai')->widget(DatePicker::classname(), [
+                'options' => ['placeholder' => Yii::t('app', 'Pilih Tahun')],
+                'attribute2'=>'to_date',
+                //'readonly' => true,
+                //'type' => DatePicker::TYPE_DATE,
+                'pluginOptions' => [
+                    'autoclose' => true,
+                    'startView'=>'years',
+                    'minViewMode'=>'years',
+                    'format' => 'yyyy'
+                ]
+            ]) ?>
+            <?= $form->field($model, 'tahun_selesai')->widget(DatePicker::classname(), [
+                'options' => ['placeholder' => Yii::t('app', 'Pilih Tahun')],
+                'attribute2'=>'to_date',
+                //'readonly' => true,
+                //'type' => DatePicker::TYPE_DATE,
+                'pluginOptions' => [
+                    'autoclose' => true,
+                    'startView'=>'years',
+                    'minViewMode'=>'years',
+                    'format' => 'yyyy'
+                ]
+            ]) ?>
                
         </div>
        
