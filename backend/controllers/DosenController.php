@@ -2,7 +2,8 @@
 
 namespace backend\controllers;
 
-use backend\models\{Pegawai, RiwayatPendPegawai, DosenResearch, DosenPengabdianMasyarakat};
+use Yii;
+use backend\models\{Pegawai, RiwayatPendPegawai, DosenResearch, DosenPengabdianMasyarakat, Honor, HonorItem, Model};
 use backend\models\DosenSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -57,32 +58,74 @@ class DosenController extends Controller
      */
     public function actionView($id_pegawai)
     {
+        
+        
+        
+        return $this->render('view', [
+            'model' => $this->findModel($id_pegawai),
+            
+        ]);
+    }
+
+    public function actionPendidikan($id_pegawai)
+    {
         $pendidikan = new ActiveDataProvider([
             'query' => RiwayatPendPegawai::find()->where(['pegawai_id'=>$id_pegawai])->orderBy('id_rwytpegawai DESC'),
             'pagination' => [
                 'pageSize' => 10,
             ],
         ]);
+
+        return $this->render('pendidikan', [
+            'pendidikan' => $pendidikan,
+            
+        ]);
+    }
+
+    public function actionResearch($id_pegawai)
+    {
         $research = new ActiveDataProvider([
             'query' => DosenResearch::find()->where(['pegawai_id'=>$id_pegawai])->orderBy('id_rsch DESC'),
             'pagination' => [
                 'pageSize' => 10,
             ],
         ]);
+
+        return $this->render('research', [
+            'research' => $research,
+            
+        ]);
+    }
+    
+    public function actionPengabdian($id_pegawai)
+    {
         $pengabdian = new ActiveDataProvider([
             'query' => DosenPengabdianMasyarakat::find()->where(['pegawai_id'=>$id_pegawai])->orderBy('id_pengabdian DESC'),
             'pagination' => [
                 'pageSize' => 10,
             ],
         ]);
-        return $this->render('view', [
-            'model' => $this->findModel($id_pegawai),
-            'pendidikan' => $pendidikan,
-            'research' => $research,
+
+        return $this->render('pengabdian', [
             'pengabdian' => $pengabdian,
+            
         ]);
     }
 
+    public function actionHonor($id_pegawai)
+    {
+        $honor = new ActiveDataProvider([
+            'query' => Honor::find()->where(['pegawai_id'=>$id_pegawai])->orderBy('id_honor DESC'),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        return $this->render('honor', [
+            'honor' => $honor,
+            
+        ]);
+    }
     /**
      * Creates a new Pegawai model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -148,7 +191,7 @@ class DosenController extends Controller
         if ($this->request->isPost) {
           
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_pegawai' => $id_pegawai]);
+                return $this->redirect(['pendidikan', 'id_pegawai' => $id_pegawai]);
             }
         } else {
             $model->loadDefaultValues();
@@ -157,6 +200,28 @@ class DosenController extends Controller
         return $this->renderAjax('add-pendidikan', [
             'model' => $model,
             'id_pegawai' => $id_pegawai,
+        ]);
+    }
+
+    public function actionEditPendidikan($id_pegawai,$id_rwytpegawai)
+    {
+        $id_pegawai = $_GET['id_pegawai'];
+        $id_rwytpegawai = $_GET['id_rwytpegawai'];
+        $model = RiwayatPendPegawai::find()->where(['id_rwytpegawai'=>$id_rwytpegawai])->one();
+       
+        if ($this->request->isPost) {
+          
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['pendidikan', 'id_pegawai' => $id_pegawai]);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->renderAjax('edit-pendidikan', [
+            'model' => $model,  
+            'id_pegawai' => $id_pegawai,
+            'id_rwytpegawai' => $id_rwytpegawai,
         ]);
     }
 
@@ -169,7 +234,7 @@ class DosenController extends Controller
         if ($this->request->isPost) {
           
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_pegawai' => $id_pegawai]);
+                return $this->redirect(['research', 'id_pegawai' => $id_pegawai]);
             }
         } else {
             $model->loadDefaultValues();
@@ -178,6 +243,28 @@ class DosenController extends Controller
         return $this->renderAjax('add-research', [
             'model' => $model,
             'id_pegawai' => $id_pegawai,
+        ]);
+    }
+
+    public function actionEditResearch($id_pegawai,$id_rsch)
+    {
+        $id_pegawai = $_GET['id_pegawai'];
+        $id_rsch = $_GET['id_rsch'];
+        $model = DosenResearch::find()->where(['id_rsch'=>$id_rsch])->one();
+       
+        if ($this->request->isPost) {
+          
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['research', 'id_pegawai' => $id_pegawai]);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->renderAjax('edit-research', [
+            'model' => $model,  
+            'id_pegawai' => $id_pegawai,
+            'id_rsch' => $id_rsch,
         ]);
     }
 
@@ -190,7 +277,7 @@ class DosenController extends Controller
         if ($this->request->isPost) {
           
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_pegawai' => $id_pegawai]);
+                return $this->redirect(['pengabdian', 'id_pegawai' => $id_pegawai]);
             }
         } else {
             $model->loadDefaultValues();
@@ -199,6 +286,97 @@ class DosenController extends Controller
         return $this->renderAjax('add-pengabdian', [
             'model' => $model,
             'id_pegawai' => $id_pegawai,
+        ]);
+    }
+
+    public function actionEditPengabdian($id_pegawai,$id_pengabdian)
+    {
+        $id_pegawai = $_GET['id_pegawai'];
+        $id_pengabdian = $_GET['id_pengabdian'];
+        $model = DosenPengabdianMasyarakat::find()->where(['id_pengabdian'=>$id_pengabdian])->one();
+       
+        if ($this->request->isPost) {
+          
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['pengabdian', 'id_pegawai' => $id_pegawai]);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->renderAjax('edit-pengabdian', [
+            'model' => $model,  
+            'id_pegawai' => $id_pegawai,
+            'id_pengabdian' => $id_pengabdian,
+        ]);
+    }
+
+    public function actionAddHonor($id_pegawai)
+    {
+        $id_pegawai = $_GET['id_pegawai'];
+        $modelHonor = new Honor;
+        $modelsItems = [new HonorItem];
+        
+
+        if ($modelHonor->load(Yii::$app->request->post())) {
+
+            $modelsItems = Model::createMultiple(HonorItem::classname());
+            Model::loadMultiple($modelsItems, Yii::$app->request->post());
+
+            // validate all models
+            $valid = $modelHonor->validate();
+            $valid = Model::validateMultiple($modelsItems) && $valid;
+
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+
+                try {
+                    if ($flag = $modelHonor->save(false)) {
+                        foreach ($modelsItems as $modelItems) {
+                            $modelItems->honor_id = $modelHonor->id_honor;
+                            if (! ($flag = $modelItems->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['honor', 'id_pegawai' => $modelHonor->pegawai_id]);
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+        }
+
+        return $this->renderAjax('add-honor', [
+            'modelHonor' => $modelHonor,
+            'modelsItems' => (empty($modelsItems)) ? [new Address] : $modelsItems,
+            'id_pegawai' => $id_pegawai,
+        ]);
+    }
+
+    public function actionEditHonor($id_pegawai,$id_pengabdian)
+    {
+        $id_pegawai = $_GET['id_pegawai'];
+        $id_pengabdian = $_GET['id_pengabdian'];
+        $model = Honor::find()->where(['id_pengabdian'=>$id_pengabdian])->one();
+       
+        if ($this->request->isPost) {
+          
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['pengabdian', 'id_pegawai' => $id_pegawai]);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->renderAjax('edit-pengabdian', [
+            'model' => $model,  
+            'id_pegawai' => $id_pegawai,
+            'id_pengabdian' => $id_pengabdian,
         ]);
     }
 

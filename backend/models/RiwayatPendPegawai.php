@@ -12,7 +12,7 @@ use Yii;
  * @property string $jenjang_pendidikan
  * @property string $nama_institusi
  * @property string $prodi
- * @property string $waktu_pendidikan
+ * @property string $tahun_mulai
  *
  * @property Pegawai $pegawai
  */
@@ -32,9 +32,9 @@ class RiwayatPendPegawai extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'pegawai_id', 'jenjang_pendidikan', 'nama_institusi', 'prodi', 'waktu_pendidikan'], 'required'],
+            [[ 'pegawai_id', 'jenjang_pendidikan', 'nama_institusi', 'prodi', 'tahun_mulai', 'tahun_selesai'], 'required'],
             [['id_rwytpegawai', 'pegawai_id'], 'integer'],
-            [['jenjang_pendidikan', 'nama_institusi', 'prodi', 'waktu_pendidikan'], 'string', 'max' => 45],
+            [['jenjang_pendidikan', 'nama_institusi', 'prodi', 'tahun_mulai', 'tahun_selesai'], 'string', 'max' => 45],
             [['id_rwytpegawai'], 'unique'],
             [['pegawai_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pegawai::class, 'targetAttribute' => ['pegawai_id' => 'id_pegawai']],
         ];
@@ -51,7 +51,8 @@ class RiwayatPendPegawai extends \yii\db\ActiveRecord
             'jenjang_pendidikan' => 'Jenjang Pendidikan',
             'nama_institusi' => 'Nama Institusi',
             'prodi' => 'Prodi',
-            'waktu_pendidikan' => 'Waktu Pendidikan',
+            'tahun_mulai' => 'Tahun Mulai',
+            'tahun_selesai' => 'Tahun Selesai',
         ];
     }
 

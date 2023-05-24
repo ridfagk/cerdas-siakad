@@ -86,15 +86,8 @@ class DataptController extends Controller
             $model = DataPT::find()->one();
 
             if ($this->request->isPost) {
-                if ($model->load($this->request->post())) {
-                    $model->logo_pt = UploadedFile::getInstance($model,'logo_pt');
-                    if($model->logo_pt){               
-                        $file =$model->kd_pt.'.'.$model->logo_pt->extension;
-                        if ($model->logo_pt->saveAs(Yii::getAlias('@webroot').'/img/'.$file)){
-                            $model->logo_pt = $file;           
-                        }
-                    }
-                    $model->save(false);
+                if ($model->load($this->request->post()) && $model->save()) {
+                  
                     return $this->redirect(['index']);
                 }
             } else {

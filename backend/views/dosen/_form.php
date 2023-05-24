@@ -90,16 +90,16 @@ use kartik\select2\Select2;
         <div class="row">
             <div class="col-md-6">
                 <?= 
-                    $form->field($model, 'tgl_masuk')->widget(DateControl::classname(), [
-                    'type'=>DateControl::FORMAT_DATE,
-                    'ajaxConversion'=>false,
-                    'widgetOptions' => [
-                        'pluginOptions' => [
-                            'autoclose' => true,
-                            'startView'=>'years',
+                        $form->field($model, 'tgl_masuk')->widget(DateControl::classname(), [
+                        'type'=>DateControl::FORMAT_DATE,
+                        'ajaxConversion'=>false,
+                        'widgetOptions' => [
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'startView'=>'years',
+                            ]
                         ]
-                    ]
-                ]);
+                    ]);
                 
                 ?>
             </div>

@@ -14,6 +14,7 @@ return array(
     'yii\\bootstrap5\\' => array($vendorDir . '/yiisoft/yii2-bootstrap5/src'),
     'yii\\bootstrap4\\' => array($vendorDir . '/yiisoft/yii2-bootstrap4/src'),
     'yii\\' => array($vendorDir . '/yiisoft/yii2'),
+    'wbraganca\\dynamicform\\' => array($vendorDir . '/wbraganca/yii2-dynamicform/src'),
     'kartik\\widgets\\' => array($vendorDir . '/kartik-v/yii2-widgets/src'),
     'kartik\\typeahead\\' => array($vendorDir . '/kartik-v/yii2-widget-typeahead/src'),
     'kartik\\touchspin\\' => array($vendorDir . '/kartik-v/yii2-widget-touchspin/src'),
