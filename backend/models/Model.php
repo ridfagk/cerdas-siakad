@@ -22,14 +22,14 @@ class Model extends \yii\base\Model
         $models   = [];
 
         if (! empty($multipleModels)) {
-            $keys = array_keys(ArrayHelper::map($multipleModels, 'id', 'id'));
+            $keys = array_keys(ArrayHelper::map($multipleModels, 'id_itemhnr', 'id_itemhnr'));
             $multipleModels = array_combine($keys, $multipleModels);
         }
 
         if ($post && is_array($post)) {
             foreach ($post as $i => $item) {
-                if (isset($item['id']) && !empty($item['id']) && isset($multipleModels[$item['id']])) {
-                    $models[] = $multipleModels[$item['id']];
+                if (isset($item['id_itemhnr']) && !empty($item['id_itemhnr']) && isset($multipleModels[$item['id_itemhnr']])) {
+                    $models[] = $multipleModels[$item['id_itemhnr']];
                 } else {
                     $models[] = new $modelClass;
                 }

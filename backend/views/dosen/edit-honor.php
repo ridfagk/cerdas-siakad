@@ -85,12 +85,7 @@ $modelHonor->pegawai_id = $idpegawai;
                         <div class="clearfix"></div>
                     </div>
                     <div class="card-body">
-                        <?php
-                            // necessary for update action.
-                            if (!$modelItems->isNewRecord) {
-                                echo Html::activeHiddenInput($modelItems, "[{$index}]id");
-                            }
-                        ?>
+                    
                         <div class="row">
                             <div class="col-md-6">
                                 <?= $form->field($modelItems, "[{$index}]matkul_id")->widget(Select2::classname(), [

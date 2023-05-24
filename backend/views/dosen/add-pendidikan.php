@@ -26,8 +26,16 @@ $model->pegawai_id = $idpegawai;
             <div class="col-md-6">
                 
             </div>
-           
-            <?= $form->field($model, 'jenjang_pendidikan')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'jenjang_pendidikan')->widget(Select2::classname(), [
+                                    'data' => ['SMA'=>'SMA', 'D1'=>'D1', 'D2'=>'D2', 'D3'=>'D3',
+                                                'D4'=>'D4', 'S1'=>'S1', 'S2'=>'S2', 'S3'=>'S3', 
+                                                ],
+                                    'hideSearch' => true,
+                                    'options' => ['placeholder' => '-Pilih Jenjang-',
+                                                ],
+                                    'pluginOptions' => ['allowClear' => true],
+                                    ]); 
+                ?>
             <?= $form->field($model, 'nama_institusi')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'prodi')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'tahun_mulai')->widget(DatePicker::classname(), [

@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 
 /**
  * DosenController implements the CRUD actions for Pegawai model.
@@ -353,32 +354,72 @@ class DosenController extends Controller
 
         return $this->renderAjax('add-honor', [
             'modelHonor' => $modelHonor,
-            'modelsItems' => (empty($modelsItems)) ? [new Address] : $modelsItems,
+            'modelsItems' => (empty($modelsItems)) ? [new HonorItem] : $modelsItems,
             'id_pegawai' => $id_pegawai,
         ]);
     }
 
-    public function actionEditHonor($id_pegawai,$id_pengabdian)
+    public function actionEditHonor($id_pegawai,$id_honor)
     {
         $id_pegawai = $_GET['id_pegawai'];
-        $id_pengabdian = $_GET['id_pengabdian'];
-        $model = Honor::find()->where(['id_pengabdian'=>$id_pengabdian])->one();
-       
-        if ($this->request->isPost) {
-          
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['pengabdian', 'id_pegawai' => $id_pegawai]);
+        $id_honor = $_GET['id_honor'];
+        $modelHonor = Honor::find()->where(['id_honor' => $id_honor])->one();
+        $modelsItems = $modelHonor->honorItems;
+        
+
+        if ($modelHonor->load(Yii::$app->request->post())) {
+
+            $oldIDs = ArrayHelper::map($modelsItems, 'id_itemhnr', 'id_itemhnr');
+            $modelsItems = Model::createMultiple(HonorItem::classname(), $modelsItems);
+            Model::loadMultiple($modelsItems, Yii::$app->request->post());
+            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsItems, 'id_itemhnr', 'id_itemhnr')));
+
+            // ajax validation
+            if (Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ArrayHelper::merge(
+                    ActiveForm::validateMultiple($modelsItems),
+                    ActiveForm::validate($modelHonor)
+                );
             }
-        } else {
-            $model->loadDefaultValues();
+
+            // validate all models
+            $valid = $modelHonor->validate();
+            $valid = Model::validateMultiple($modelsItems) && $valid;
+
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $modelHonor->save(false)) {
+                        if (! empty($deletedIDs)) {
+                            HonorItem::deleteAll(['id_itemhnr' => $deletedIDs]);
+                        }
+                        foreach ($modelsItems as $modelItems) {
+                            $modelItems->honor_id = $modelHonor->id_honor;
+                            if (! ($flag = $modelItems->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['honor', 'id_pegawai' => $modelHonor->pegawai_id]);
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
         }
 
-        return $this->renderAjax('edit-pengabdian', [
-            'model' => $model,  
+        return $this->renderAjax('edit-honor', [
+            'modelHonor' => $modelHonor,
+            'modelsItems' => (empty($modelsItems)) ? [new HonorItem] : $modelsItems,
             'id_pegawai' => $id_pegawai,
-            'id_pengabdian' => $id_pengabdian,
+            'id_honor' => $id_honor
         ]);
     }
+    
 
     /**
      * Finds the Pegawai model based on its primary key value.
