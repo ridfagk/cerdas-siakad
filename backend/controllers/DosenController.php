@@ -3,13 +3,14 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\{Pegawai, RiwayatPendPegawai, DosenResearch, DosenPengabdianMasyarakat, Honor, HonorItem, Model};
+use backend\models\{Pegawai, RiwayatPendPegawai, DosenResearch, DosenPengabdianMasyarakat, Honor, HonorItem, Model, DataPt};
 use backend\models\DosenSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
+use kartik\mpdf\Pdf;
 
 /**
  * DosenController implements the CRUD actions for Pegawai model.
@@ -312,6 +313,48 @@ class DosenController extends Controller
         ]);
     }
 
+    public function actionHonorDetail($id_pegawai,$id_honor)
+    {
+        $honor = Honor::find()->where(['id_honor' => $id_honor])->one();
+        $honorItem = HonorItem::find()->where(['honor_id' => $id_honor])->all();
+        $logopt = DataPt::find()->one();
+        return $this->render('honor-detail', [
+            'honor'=>$honor,
+            'honorItem'=>$honorItem,
+            'logopt' => $logopt,
+        ]);
+    }
+
+    public function actionHonorDetailPrint($id_pegawai,$id_honor) 
+    {
+        
+        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+            'destination' => Pdf::DEST_BROWSER,
+            'content' => $this->renderPartial('honor-detail-print'),
+            'marginTop' => 6,
+            'marginLeft' => 10,
+            'marginRight' => 10,
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.css',
+            
+            'options' => [
+                
+                // any mpdf options you wish to set
+            ],
+            'methods' => [
+                'SetTitle' => 'Laporan Pendampingan',
+                'SetSubject' => 'Generating PDF files via yii2-mpdf extension has never been easy',
+                // 'SetHeader' => ['Krajee Privacy Policy||Generated On: ' . date("r")],
+                //'SetFooter' => ['|Page {PAGENO}|'],
+                'SetAuthor' => 'Kartik Visweswaran',
+                'SetCreator' => 'Kartik Visweswaran',
+                'SetKeywords' => 'Krajee, Yii2, Export, PDF, MPDF, Output, Privacy, Policy, yii2-mpdf',
+            ]
+        ]);
+        return $pdf->render();
+    }
+
     public function actionAddHonor($id_pegawai)
     {
         $id_pegawai = $_GET['id_pegawai'];
@@ -352,7 +395,7 @@ class DosenController extends Controller
             }
         }
 
-        return $this->renderAjax('add-honor', [
+        return $this->render('add-honor', [
             'modelHonor' => $modelHonor,
             'modelsItems' => (empty($modelsItems)) ? [new HonorItem] : $modelsItems,
             'id_pegawai' => $id_pegawai,
@@ -412,7 +455,7 @@ class DosenController extends Controller
             }
         }
 
-        return $this->renderAjax('edit-honor', [
+        return $this->render('edit-honor', [
             'modelHonor' => $modelHonor,
             'modelsItems' => (empty($modelsItems)) ? [new HonorItem] : $modelsItems,
             'id_pegawai' => $id_pegawai,

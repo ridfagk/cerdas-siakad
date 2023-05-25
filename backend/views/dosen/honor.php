@@ -1,6 +1,6 @@
 <?php
 use yii\widgets\{Pjax, ListView};
-use yii\helpers\Url;
+use yii\helpers\{Html,Url};
 use yii\bootstrap5\Modal;
 
 $id_pegawai = $_GET['id_pegawai'];
@@ -14,9 +14,8 @@ $id_pegawai = $_GET['id_pegawai'];
         <div class="card card-body">
             <h4>Honor Dosen</h4>
             <p style="text-align:right">
-                <a class="btn btn-primary btn-sm custom_buttone text-white" value="<?= Url::to(['add-honor','id_pegawai' => $id_pegawai]) ?>">
-                    <b><i class="fas fa-plus"></i> Tambah Honor Dosen</b>
-                </a>
+                <?= Html::a('<b><i class="fas fa-plus"></i> Tambah Honor Dosen</b>', ['add-honor', 'id_pegawai' => $id_pegawai], ['class' => 'btn btn-primary btn-xs']);?>
+                
             </p>
             <table class="table table-bordered">
                 <thead>

@@ -30,7 +30,7 @@ class HonorItem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'matkul_id', 'honor'], 'required'],
+            [[ 'matkul_id', 'honor', 'semester', 'kegiatan'], 'required'],
             [['id_itemhnr', 'honor_id'], 'integer'],
             [['matkul_id', 'honor'], 'string', 'max' => 45],
             [['id_itemhnr'], 'unique'],
@@ -59,5 +59,10 @@ class HonorItem extends \yii\db\ActiveRecord
     public function getHonor0()
     {
         return $this->hasOne(Honor::class, ['id_honor' => 'honor_id']);
+    }
+
+    public function getMatkul()
+    {
+        return $this->hasOne(DataMatkul::class, ['id_matkul' => 'matkul_id']);
     }
 }

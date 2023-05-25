@@ -310,4 +310,13 @@ return array (
       '@wbraganca/dynamicform' => $vendorDir . '/wbraganca/yii2-dynamicform/src',
     ),
   ),
+  'kartik-v/yii2-mpdf' => 
+  array (
+    'name' => 'kartik-v/yii2-mpdf',
+    'version' => 'dev-master',
+    'alias' => 
+    array (
+      '@kartik/mpdf' => $vendorDir . '/kartik-v/yii2-mpdf/src',
+    ),
+  ),
 );

@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
+use kartik\datecontrol\DateControl;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 
 /** @var yii\web\View $this */
 /** @var backend\models\Pegawai $model */
@@ -12,40 +14,144 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nip')->textInput(['maxlength' => true]) ?>
+    <div class="card card-body">
 
-    <?= $form->field($model, 'nidn')->textInput() ?>
+        <div class="row">
+            <div class="col-md-6">
+                <?= $form->field($model, 'nip')->textInput(['maxlength' => true]) ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'nidn')->textInput() ?>
+            </div>
+        </div>
 
-    <?= $form->field($model, 'nama_pegawai')->textInput(['maxlength' => true]) ?>
+        <div class="row">
+            <div class="col-md-6">
+                <?= $form->field($model, 'nama_pegawai')->textInput(['maxlength' => true]) ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model,  'jenis_kelamin')->widget(Select2::classname(), [
+                                    'data' => ['Laki-laki'=>'Laki-laki', 'Perempuan'=>'Perempuan'],
+                                    'hideSearch' => true,
+                                    'options' => ['placeholder' => '-Pilih Jenis Kelamin-',
+                                                ],
+                                    'pluginOptions' => ['allowClear' => true],
+                                    ]); 
+                ?>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <?= $form->field($model, 'tempat_lahir')->textInput(['maxlength' => true]) ?>
+            </div>
+            <div class="col-md-6">
+                <?= 
+                        $form->field($model, 'tgl_lahir')->widget(DateControl::classname(), [
+                        'type'=>DateControl::FORMAT_DATE,
+                        'ajaxConversion'=>false,
+                        'widgetOptions' => [
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'startView'=>'years',
+                            ]
+                        ]
+                    ]);
+                
+                ?>
+            </div>
+        </div>
 
-    <?= $form->field($model, 'alamat_pegawai')->textarea(['rows' => 6]) ?>
+        <div class="row">
+            <div class="col-md-6">
+                <?= $form->field($model, 'no_telp')->textInput(['type' => 'number']) ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+            </div>
+        </div>
 
-    <?= $form->field($model, 'no_telp')->textInput() ?>
+        <div class="row">
+            <div class="col-md-6">
+                <?= $form->field($model,  'agama')->widget(Select2::classname(), [
+                                    'data' => ['Islam'=>'Islam', 'Protestan'=>'Protestan', 'Katolik'=>'Katolik', 'Hindu'=>'Hindu', 'Buddha'=>'Buddha', 'Khonghucu'=>'Khonghucu'],
+                                    'hideSearch' => true,
+                                    'options' => ['placeholder' => '-Pilih Agama-',
+                                                ],
+                                    'pluginOptions' => ['allowClear' => true],
+                                    ]); 
+                ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'pendidikan_akhir')->widget(Select2::classname(), [
+                                    'data' => ['SMA'=>'SMA', 'D1'=>'D1', 'D2'=>'D2', 'D3'=>'D3',
+                                                'D4'=>'D4', 'S1'=>'S1', 'S2'=>'S2', 'S3'=>'S3', 
+                                                ],
+                                    'hideSearch' => true,
+                                    'options' => ['placeholder' => '-Pilih Jenjang-',
+                                                ],
+                                    'pluginOptions' => ['allowClear' => true],
+                                    ]); 
+                ?>
+            </div>
+        </div>
 
-    <?= $form->field($model, 'tempat_lahir')->textInput(['maxlength' => true]) ?>
+        <div class="row">
+            <div class="col-md-6">
+                <?= 
+                        $form->field($model, 'tgl_masuk')->widget(DateControl::classname(), [
+                        'type'=>DateControl::FORMAT_DATE,
+                        'ajaxConversion'=>false,
+                        'widgetOptions' => [
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'startView'=>'years',
+                            ]
+                        ]
+                    ]);
+                
+                ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model,  'jabatan')->widget(Select2::classname(), [
+                                    'data' => ['Operator'=>'Operator', 'Dosen'=>'Dosen', 'Mentor'=>'Mentor'],
+                                    'hideSearch' => true,
+                                    'options' => ['placeholder' => '-Pilih Jabatan-',
+                                                ],
+                                    'pluginOptions' => ['allowClear' => true],
+                                    ]); 
+                ?>
+            </div>
+        </div>
 
-    <?= $form->field($model, 'tgl_lahir')->textInput() ?>
+        <div class="row">
+            <div class="col-md-6">
+                <?= $form->field($model,  'status_ikatankerja')->widget(Select2::classname(), [
+                                    'data' => ['Mentor'=>'Mentor'],
+                                    'hideSearch' => true,
+                                    'options' => ['placeholder' => '-Pilih Jabatan-',
+                                                ],
+                                    'pluginOptions' => ['allowClear' => true],
+                                    ]); 
+                ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model,  'status_aktif')->widget(Select2::classname(), [
+                                    'data' => ['Aktif'=>'Aktif', 'Cuti'=>'Cuti', 'Ijin Belajar'=>'Ijin Belajar', 'Tugas di Instansi Lain'=>'Tugas di Instansi Lain', 'Tugas Belajar'=>'Tugas Belajar'],
+                                    'hideSearch' => true,
+                                    'options' => ['placeholder' => '-Pilih Jabatan-',
+                                                ],
+                                    'pluginOptions' => ['allowClear' => true],
+                                    ]); 
+                ?>
+            </div>
+        </div>
 
-    <?= $form->field($model, 'agama')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'alamat_pegawai')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'jenis_kelamin')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'tgl_masuk')->textInput() ?>
-
-    <?= $form->field($model, 'jabatan')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'pendidikan_akhir')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'status_ikatankerja')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'status_aktif')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'foto')->textarea(['rows' => 6]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <div class="form-group">
+            <?= Html::submitButton('Simpan Data', ['class' => 'btn btn-primary btn-block']) ?>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>
