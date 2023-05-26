@@ -98,8 +98,6 @@ class DataptController extends Controller
             ]);
         }
         
-
-        
     }
 
     public function actionAddlogo()
