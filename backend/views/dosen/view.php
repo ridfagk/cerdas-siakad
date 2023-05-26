@@ -26,7 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Html::img('@imageurl/frontend/web/img/user.png',['width' => '150'])?>
                 </div>
                 <div class="col-md-9">
-                    
+                    <div class="row mb-2">
+                        <div class="col-md-3">
+                            <h6 class="mb-0">Tanggal Masuk</h6>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="text-secondary">
+                                <?= $model->tgl_masuk?>
+                            </div>
+                        </div>
+                        
+                    </div>
                     <div class="row mb-2">
                         <div class="col-md-3">
                             <h6 class="mb-0">Status Ikatan Kerja</h6>

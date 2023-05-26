@@ -55,6 +55,7 @@ use yii\helpers\Html;
                             'label' => 'Perkuliahan',
                             'icon' => 'graduation-cap',
                             'items' => [
+                                ['label' => 'Tahun Kurikulum', 'url'=>['tahun-kurikulum/index'], 'icon' => 'bullseye'],
                                 ['label' => 'Tahun Akademik', 'url'=>['tahun-akademik/index'], 'icon' => 'bullseye'],
                                 ['label' => 'Kelas Kuliah', 'url'=>['kelas-kuliah/index'],'icon' => 'bullseye'],
                                 ['label' => 'Jadwal Kuliah', 'icon' => 'bullseye'],
@@ -70,10 +71,8 @@ use yii\helpers\Html;
                             ['label' => 'Operator', 'url' => ['operator/index'], 'icon' => 'bullseye'],
                         ]
                     ],
-
-                    ['label' => 'Evaluasi', 'icon' => 'file-alt'],
-                    
                     ['label' => 'Mahasiswa', 'url' => ['mahasiswa/index'], 'icon' => 'file-export'],
+                    ['label' => 'Evaluasi', 'icon' => 'file-alt'],
                     ['label' => 'Template Surat', 'url' => ['template-surat/index'] ,'icon' => 'envelope'],
                     ['label' => 'Pengumuman', 'url' => ['pengumuman/index'],'icon' => 'info-circle'],
                     // [

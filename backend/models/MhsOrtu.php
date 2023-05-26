@@ -49,7 +49,7 @@ class MhsOrtu extends \yii\db\ActiveRecord
             [['nik_ayah', 'notelp_ayah', 'nama_ayah', 'tempat_lhr_ayah', 'tggl_lhr_ayah', 'agama_ayah', 'pekerjaan_ayah', 'penghasilan_ayah', 'pendidikan_ayah', 'nik_ibu', 'notelp_ibu', 'nama_ibu', 'tempat_lhr_ibu', 'tggl_lhr_ibu', 'agama_ibu', 'pekerjaan_ibu', 'penghasilan_ibu', 'pendidikan_ibu', 'nim'], 'required'],
             [['nik_ayah', 'notelp_ayah', 'nama_ayah', 'tempat_lhr_ayah', 'tggl_lhr_ayah', 'agama_ayah', 'pekerjaan_ayah', 'penghasilan_ayah', 'pendidikan_ayah', 'nik_ibu', 'notelp_ibu', 'nama_ibu', 'tempat_lhr_ibu', 'tggl_lhr_ibu', 'agama_ibu', 'pekerjaan_ibu', 'penghasilan_ibu', 'pendidikan_ibu'], 'string', 'max' => 45],
             [['nim'], 'string', 'max' => 15],
-            [['nim'], 'exist', 'skipOnError' => true, 'targetClass' => Mahasiswa::class, 'targetAttribute' => ['nim' => 'nim']],
+            [['nim'], 'exist', 'skipOnError' => true, 'targetClass' => DataMhs::class, 'targetAttribute' => ['nim' => 'nim']],
         ];
     }
 
@@ -89,6 +89,6 @@ class MhsOrtu extends \yii\db\ActiveRecord
      */
     public function getNim0()
     {
-        return $this->hasOne(Mahasiswa::class, ['nim' => 'nim']);
+        return $this->hasOne(DataMhs::class, ['nim' => 'nim']);
     }
 }

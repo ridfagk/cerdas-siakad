@@ -50,7 +50,7 @@ class MhsAlamat extends \yii\db\ActiveRecord
             [['notelp'], 'string', 'max' => 13],
             [['tinggal_dengan', 'transportasi', 'jarak'], 'string', 'max' => 45],
             [['nim'], 'string', 'max' => 15],
-            [['nim'], 'exist', 'skipOnError' => true, 'targetClass' => Mahasiswa::class, 'targetAttribute' => ['nim' => 'nim']],
+            [['nim'], 'exist', 'skipOnError' => true, 'targetClass' => DataMhs::class, 'targetAttribute' => ['nim' => 'nim']],
         ];
     }
 
@@ -87,6 +87,6 @@ class MhsAlamat extends \yii\db\ActiveRecord
      */
     public function getNim0()
     {
-        return $this->hasOne(Mahasiswa::class, ['nim' => 'nim']);
+        return $this->hasOne(DataMhs::class, ['nim' => 'nim']);
     }
 }

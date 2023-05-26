@@ -215,4 +215,9 @@ class DataMhs extends \yii\db\ActiveRecord
     {
         return $this->hasMany(WaliMhs::class, ['nim' => 'nim']);
     }
+
+    public function getProdis()
+    {
+        return $this->hasOne(DataProdi::class, ['kd_prodi' => 'prodi_id']);
+    }
 }
