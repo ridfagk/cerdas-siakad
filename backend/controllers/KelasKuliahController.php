@@ -175,6 +175,7 @@ class KelasKuliahController extends Controller
     public function actionPeserta($id_kelas)
     {
         $id_kelas = $_GET['id_kelas'];
+        $kelas = KelasKuliah::find()->where(['id_kelas'=>$id_kelas])->one();
         $peserta = new ActiveDataProvider([
             'query' => KelasKRS::find()->where(['kelas_id'=>$id_kelas]),
             'pagination' => [
@@ -183,6 +184,7 @@ class KelasKuliahController extends Controller
         ]);
 
         return $this->render('peserta', [
+            'kelas' => $kelas,
             'peserta' => $peserta,
             'id_kelas' => $id_kelas,
             
@@ -192,11 +194,13 @@ class KelasKuliahController extends Controller
     public function actionPresensi($id_kelas)
     {
         $id_kelas = $_GET['id_kelas'];
-        $kelas = KelasKRS::find()->where(['kelas_id' => $id_kelas])->all();
+        $kelas = KelasKuliah::find()->where(['id_kelas'=>$id_kelas])->one();
+        $kelasmhs = KelasKRS::find()->where(['kelas_id' => $id_kelas])->all();
         $presensis = MhsPresensi::find()->where(['kelas_id'=>$id_kelas])->all();
 
         return $this->render('presensi', [
             'kelas' => $kelas,
+            'kelasmhs' => $kelasmhs,
             'presensis' => $presensis,
             'id_kelas' => $id_kelas,
             
@@ -256,11 +260,13 @@ class KelasKuliahController extends Controller
     public function actionNilai($id_kelas)
     {
         $id_kelas = $_GET['id_kelas'];
-        $kelas = KelasKRS::find()->where(['kelas_id' => $id_kelas])->all();
+        $kelas = KelasKuliah::find()->where(['id_kelas'=>$id_kelas])->one();
+        $kelasmhs = KelasKRS::find()->where(['kelas_id' => $id_kelas])->all();
         $grades = MhsPresensi::find()->where(['kelas_id'=>$id_kelas])->all();
 
         return $this->render('nilai', [
             'kelas' => $kelas,
+            'kelasmhs' => $kelasmhs,
             'grades' => $grades,
             'id_kelas' => $id_kelas,
             

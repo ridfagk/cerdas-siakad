@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-md-6">
                     <h4>Peserta Kelas</h4>
                 </div>
+                
                 <div class="col-md-6">
                     <p style="text-align:right">
                         <a class="btn btn-warning btn-sm custom_buttona m-1" value="<?= Url::to(['update','id_kelas' => $id_kelas]) ?>">
@@ -39,8 +40,59 @@ $this->params['breadcrumbs'][] = $this->title;
                     </p>
                 </div>
             </div>
-           
-            <div id="profil-page" style="display:block">
+            <div class="row">
+                <div class="col-md-6">
+                    <span><b>Tahun Akademik: </b><?= $kelas->thn_akademik ?></span>
+                
+                </div>
+                <div class="col-md-6">
+                    <span><b>Nama Kelas: </b> <?= $kelas->nama_kelas ?></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <span><b>Prodi: </b> <?= $kelas->prodi->nama_prodi ?></span>
+                </div>
+                <div class="col-md-6">
+                    <span><b>Matkul: </b> <?= $kelas->matkul->nama_matkul ?></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <span><b>Semester: </b><?= $kelas->semester ?></span>
+                
+                </div>
+                <div class="col-md-6">
+                    <span><b>SKS: </b> <?= $kelas->sks ?></span>        
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <span><b>Hari: </b><?= $kelas->hari ?></span>
+                
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span><b>Tgl Mulai: </b><?= $kelas->tgl_mulai ?></span>
+                        </div>
+                        <div class="col-md-6">
+                            <span><b>Tgl Akhir: </b> <?= $kelas->tgl_akhir ?></span>        
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+
+            <div class="row">
+                <div class="col-md-6">
+                    <span><b>Jam Mulai: </b><?= $kelas->jam_mulai ?></span>
+                </div>
+                <div class="col-md-6">
+                    <span><b>Jam Akhir: </b><?= $kelas->jam_akhir ?></span>
+                </div>
+            </div>
+            <div class="mt-4" id="profil-page" style="display:block">
                 <table class="table table-bordered">
                     <thead>
                     <tr>

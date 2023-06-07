@@ -13,15 +13,77 @@ $questidx = array_merge(array(''=>' '), ArrayHelper::map(KelasKRS::find()->where
             <?= $this->render('sidemenu') ?>
         </div>
         <div class="col-md-10 card card-body">
-        <h4>Penilaian</h4>
-        <p style="text-align:right">
-            <a class="btn btn-primary btn-sm custom_buttona text-white m-1" value="<?= Url::to(['form-nilai','id_kelas' => $id_kelas]) ?>">
-                <b><i class="fas fa-plus"></i> Isi Penilaian</b>
-            </a>
-        
-        </p>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Penilaian</h4>
+                </div>
+                
+                <div class="col-md-6">
+                    <p style="text-align:right">
+                        <a class="btn btn-primary btn-sm custom_buttona text-white m-1" value="<?= Url::to(['form-nilai','id_kelas' => $id_kelas]) ?>">
+                            <b><i class="fas fa-plus"></i> Isi Penilaian</b>
+                        </a>
                     
-        <div class="tab-content" id="myTabContent">
+                    </p>
+                </div>
+            </div>
+        
+        
+
+        <div class="row">
+                <div class="col-md-6">
+                    <span><b>Tahun Akademik: </b><?= $kelas->thn_akademik ?></span>
+                
+                </div>
+                <div class="col-md-6">
+                    <span><b>Nama Kelas: </b> <?= $kelas->nama_kelas ?></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <span><b>Prodi: </b> <?= $kelas->prodi->nama_prodi ?></span>
+                </div>
+                <div class="col-md-6">
+                    <span><b>Matkul: </b> <?= $kelas->matkul->nama_matkul ?></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <span><b>Semester: </b><?= $kelas->semester ?></span>
+                
+                </div>
+                <div class="col-md-6">
+                    <span><b>SKS: </b> <?= $kelas->sks ?></span>        
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <span><b>Hari: </b><?= $kelas->hari ?></span>
+                
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span><b>Tgl Mulai: </b><?= $kelas->tgl_mulai ?></span>
+                        </div>
+                        <div class="col-md-6">
+                            <span><b>Tgl Akhir: </b> <?= $kelas->tgl_akhir ?></span>        
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+
+            <div class="row">
+                <div class="col-md-6">
+                    <span><b>Jam Mulai: </b><?= $kelas->jam_mulai ?></span>
+                </div>
+                <div class="col-md-6">
+                    <span><b>Jam Akhir: </b><?= $kelas->jam_akhir ?></span>
+                </div>
+            </div>
+                    
+        <div class="tab-content mt-4" id="myTabContent">
             <div class="table-responsive">
             <table class="table table-bordered">
                 <tr>
@@ -36,7 +98,7 @@ $questidx = array_merge(array(''=>' '), ArrayHelper::map(KelasKRS::find()->where
                     <th>Nilai Huruf</th>
                 </tr>
                 <tr>
-                    <?php foreach ($kelas as $index => $mhs) { 
+                    <?php foreach ($kelasmhs as $index => $mhs) { 
                         $grade = MhsNilai::find()->where(['nim'=>$mhs->nim])->one();
                         ?>
 
