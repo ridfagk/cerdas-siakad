@@ -33,7 +33,7 @@ class MhsRiwayatPend extends \yii\db\ActiveRecord
         return [
             [['nim', 'jenjang', 'nama_sekolah', 'jurusan'], 'required'],
             [['nim', 'jenjang', 'nama_sekolah', 'jurusan'], 'string', 'max' => 45],
-            [['nim'], 'exist', 'skipOnError' => true, 'targetClass' => Mahasiswa::class, 'targetAttribute' => ['nim' => 'nim']],
+            [['nim'], 'exist', 'skipOnError' => true, 'targetClass' => DataMhs::class, 'targetAttribute' => ['nim' => 'nim']],
         ];
     }
 
@@ -58,6 +58,6 @@ class MhsRiwayatPend extends \yii\db\ActiveRecord
      */
     public function getNim0()
     {
-        return $this->hasOne(Mahasiswa::class, ['nim' => 'nim']);
+        return $this->hasOne(DataMhs::class, ['nim' => 'nim']);
     }
 }

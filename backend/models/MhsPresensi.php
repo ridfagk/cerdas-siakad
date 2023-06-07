@@ -49,13 +49,13 @@ class MhsPresensi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_presensi', 'mahasiswa_id', 'matkul_id', 'tahun_ajar', 'semester', 'kelas_id', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'p11', 'p12', 'p13', 'p14', 'uts', 'uas'], 'required'],
+            [[ 'mahasiswa_id', 'matkul_id', 'tahun_ajar', 'semester', 'kelas_id'], 'required'],
             [['id_presensi', 'kelas_id'], 'integer'],
             [['mahasiswa_id', 'matkul_id', 'tahun_ajar', 'semester'], 'string', 'max' => 45],
             [['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'p11', 'p12', 'p13', 'p14', 'uts', 'uas'], 'string', 'max' => 5],
             [['id_presensi'], 'unique'],
             [['kelas_id'], 'exist', 'skipOnError' => true, 'targetClass' => KelasKuliah::class, 'targetAttribute' => ['kelas_id' => 'id_kelas']],
-            [['mahasiswa_id'], 'exist', 'skipOnError' => true, 'targetClass' => Mahasiswa::class, 'targetAttribute' => ['mahasiswa_id' => 'nim']],
+            [['mahasiswa_id'], 'exist', 'skipOnError' => true, 'targetClass' => DataMhs::class, 'targetAttribute' => ['mahasiswa_id' => 'nim']],
         ];
     }
 
@@ -71,22 +71,22 @@ class MhsPresensi extends \yii\db\ActiveRecord
             'tahun_ajar' => 'Tahun Ajar',
             'semester' => 'Semester',
             'kelas_id' => 'Kelas ID',
-            'p1' => 'P1',
-            'p2' => 'P2',
-            'p3' => 'P3',
-            'p4' => 'P4',
-            'p5' => 'P5',
-            'p6' => 'P6',
-            'p7' => 'P7',
-            'p8' => 'P8',
-            'p9' => 'P9',
-            'p10' => 'P10',
-            'p11' => 'P11',
-            'p12' => 'P12',
-            'p13' => 'P13',
-            'p14' => 'P14',
-            'uts' => 'Uts',
-            'uas' => 'Uas',
+            'p1' => '',
+            'p2' => '',
+            'p3' => '',
+            'p4' => '',
+            'p5' => '',
+            'p6' => '',
+            'p7' => '',
+            'p8' => '',
+            'p9' => '',
+            'p10' => '',
+            'p11' => '',
+            'p12' => '',
+            'p13' => '',
+            'p14' => '',
+            'uts' => '',
+            'uas' => '',
         ];
     }
 
@@ -107,6 +107,6 @@ class MhsPresensi extends \yii\db\ActiveRecord
      */
     public function getMahasiswa()
     {
-        return $this->hasOne(Mahasiswa::class, ['nim' => 'mahasiswa_id']);
+        return $this->hasOne(DataMhs::class, ['nim' => 'mahasiswa_id']);
     }
 }

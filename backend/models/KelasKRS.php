@@ -23,6 +23,7 @@ use Yii;
  */
 class KelasKRS extends \yii\db\ActiveRecord
 {
+    use \mdm\behaviors\ar\RelationTrait;
     /**
      * {@inheritdoc}
      */
@@ -85,5 +86,15 @@ class KelasKRS extends \yii\db\ActiveRecord
     public function getKrs()
     {
         return $this->hasOne(Krs::class, ['id_krs' => 'krs_id']);
+    }
+
+    public function getMhs()
+    {
+        return $this->hasOne(DataMhs::class, ['nim' => 'nim']);
+    }
+
+    public function setOrderItems($value)
+    {
+        $this->loadRelated('orderItems', $value);
     }
 }

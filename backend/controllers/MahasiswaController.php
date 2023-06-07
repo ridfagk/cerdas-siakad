@@ -2,10 +2,11 @@
 
 namespace backend\controllers;
 
-use backend\models\{DataMhs, MhsRiwayatPend, MhsAlamat, MhsOrtu};
+use backend\models\{DataMhs, MhsRiwayatPend, MhsAlamat, MhsOrtu, MhsRiwayatSehat};
 use backend\models\DataMhsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 
 /**
@@ -138,6 +139,99 @@ class MahasiswaController extends Controller
                 $model->loadDefaultValues();
             }
             return $this->render('form-ortu', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionFormPendidikan($nim,$id_rwypend)
+    {
+        $model = MhsRiwayatPend::find()->where(['id_rwypend'=>$id_rwypend])->one();
+
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                  
+                    return $this->redirect(['pendidikan-mhs','nim'=>$nim]);
+                }
+            } else {
+                $model->loadDefaultValues();
+            }
+            return $this->renderAjax('form-pendidikan', [
+                'model' => $model,
+            ]);
+    }
+
+    public function actionAddPendidikan($nim)
+    {
+        $model = new MhsRiwayatPend();
+
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                  
+                    return $this->redirect(['pendidikan-mhs','nim'=>$nim]);
+                }
+            } else {
+                $model->loadDefaultValues();
+            }
+            return $this->renderAjax('add-pendidikan', [
+                'model' => $model,
+                'nim' => $nim,
+            ]);
+    }
+
+
+
+    public function actionPendidikanMhs($nim)
+    {
+        $pendidikan = new ActiveDataProvider([
+            'query' => MhsRiwayatPend::find()->where(['nim'=>$nim])->orderBy('id_rwypend DESC'),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        return $this->render('pendidikan-mhs', [
+            'pendidikan' => $pendidikan,
+            
+        ]);
+    }
+
+    public function actionKesehatanMhs($nim)
+    {
+        $model = MhsRiwayatSehat::find()->where(['nim'=>$nim])->one();
+        return $this->render('kesehatan-mhs', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionFormRiwayatsehat($nim)
+    {
+        $cekalamat = MhsRiwayatSehat::find()->where(['nim'=>$nim])->one();
+        if (empty($cekalamat)) {
+            $model = new MhsRiwayatSehat();
+
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['kesehatan-mhs','nim'=>$nim]);
+                }
+            } else {
+                $model->loadDefaultValues();
+            }
+            return $this->render('form-riwayatsehat', [
+                'model' => $model,
+            ]);
+        }else{
+            $model = MhsRiwayatSehat::find()->where(['nim'=>$nim])->one();
+
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                  
+                    return $this->redirect(['kesehatan-mhs','nim'=>$nim]);
+                }
+            } else {
+                $model->loadDefaultValues();
+            }
+            return $this->render('form-riwayatsehat', [
                 'model' => $model,
             ]);
         }

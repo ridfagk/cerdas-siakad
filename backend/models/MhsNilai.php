@@ -41,13 +41,13 @@ class MhsNilai extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_nilai', 'nim', 'kelas_id', 'matkul_id', 'sks', 'thn_akademik', 'semester', 'nilai_uts', 'nilai_uas', 'nilai_tugas', 'nilai_keaktifan', 'total_nilai'], 'required'],
+            [['id_nilai', 'nim', 'kelas_id', 'matkul_id', 'sks', 'thn_akademik', 'semester', 'nilai_uts', 'nilai_uas', 'nilai_tugas', 'nilai_keaktifan'], 'required'],
             [['id_nilai', 'kelas_id'], 'integer'],
             [['nim', 'matkul_id', 'sks', 'thn_akademik', 'semester', 'nilai_uts', 'nilai_uas', 'nilai_tugas', 'nilai_keaktifan', 'total_nilai'], 'string', 'max' => 45],
             [['nilai_angka', 'nilai_huruf'], 'string', 'max' => 5],
             [['id_nilai'], 'unique'],
             [['kelas_id'], 'exist', 'skipOnError' => true, 'targetClass' => KelasKuliah::class, 'targetAttribute' => ['kelas_id' => 'id_kelas']],
-            [['nim'], 'exist', 'skipOnError' => true, 'targetClass' => Mahasiswa::class, 'targetAttribute' => ['nim' => 'nim']],
+            [['nim'], 'exist', 'skipOnError' => true, 'targetClass' => DataMhs::class, 'targetAttribute' => ['nim' => 'nim']],
         ];
     }
 
@@ -64,13 +64,13 @@ class MhsNilai extends \yii\db\ActiveRecord
             'sks' => 'Sks',
             'thn_akademik' => 'Thn Akademik',
             'semester' => 'Semester',
-            'nilai_uts' => 'Nilai Uts',
-            'nilai_uas' => 'Nilai Uas',
-            'nilai_tugas' => 'Nilai Tugas',
-            'nilai_keaktifan' => 'Nilai Keaktifan',
-            'total_nilai' => 'Total Nilai',
-            'nilai_angka' => 'Nilai Angka',
-            'nilai_huruf' => 'Nilai Huruf',
+            'nilai_uts' => '',
+            'nilai_uas' => '',
+            'nilai_tugas' => '',
+            'nilai_keaktifan' => '',
+            'total_nilai' => '',
+            'nilai_angka' => '',
+            'nilai_huruf' => '',
         ];
     }
 
@@ -91,6 +91,6 @@ class MhsNilai extends \yii\db\ActiveRecord
      */
     public function getNim0()
     {
-        return $this->hasOne(Mahasiswa::class, ['nim' => 'nim']);
+        return $this->hasOne(DataMhs::class, ['nim' => 'nim']);
     }
 }

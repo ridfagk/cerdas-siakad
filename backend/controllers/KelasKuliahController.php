@@ -3,11 +3,13 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\{KelasKuliah, TimKelasKuliah};
+use backend\models\{KelasKuliah, TimKelasKuliah, KelasKRS, MhsPresensi, MhsNilai};
 use backend\models\KelasKuliahSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
+use backend\models\Model;
 
 /**
  * KelasKuliahController implements the CRUD actions for KelasKuliah model.
@@ -170,21 +172,66 @@ class KelasKuliahController extends Controller
     }
 
 
-    public function actionPresensi()
+    public function actionPeserta($id_kelas)
     {
-        $model = new TimKelasKuliah();
+        $id_kelas = $_GET['id_kelas'];
+        $peserta = new ActiveDataProvider([
+            'query' => KelasKRS::find()->where(['kelas_id'=>$id_kelas]),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_kelas' => $model->id_kelas]);
-            }
-        } else {
-            $model->loadDefaultValues();
+        return $this->render('peserta', [
+            'peserta' => $peserta,
+            'id_kelas' => $id_kelas,
+            
+        ]);
+    }
+    
+    
+    public function actionPresensi($id_kelas)
+    {
+        $id_kelas = $_GET['id_kelas'];
+        $countpeserta = KelasKRS::find()->where(['kelas_id' => $id_kelas])->count();
+        $presensis = [new MhsPresensi];
+
+        for ($i=1; $i < $countpeserta ; $i++) { 
+            $presensis[] = new MhsPresensi();
         }
 
-        return $this->renderAjax('add-mentor', [
-            'model' => $model,
-        ]);
+        if (Model::loadMultiple($presensis, Yii::$app->request->post()) && Model::validateMultiple($presensis)) {
+            foreach ($presensis as $presensi) {
+                //Try to save the models. Validation is not needed as it's already been done.
+                $presensi->save(false);
+
+            }
+            return $this->redirect(['presensi','id_kelas'=>$id_kelas]);
+        }
+        return $this->render('presensi',['presensis'=>$presensis]); 
+    
+    }
+
+    public function actionNilai($id_kelas)
+    {
+        $id_kelas = $_GET['id_kelas'];
+        $countpeserta = KelasKRS::find()->where(['kelas_id' => $id_kelas])->count();
+        $grades = [new MhsNilai];
+
+        for ($i=1; $i < $countpeserta ; $i++) { 
+            $grades[] = new MhsNilai();
+        }
+
+        if (Model::loadMultiple($grades, Yii::$app->request->post()) && Model::validateMultiple($grades)) {
+            foreach ($grades as $grade) {
+                //Try to save the models. Validation is not needed as it's already been done.
+                $grade->save(false);
+
+            }
+            return $this->redirect(['nilai','id_kelas'=>$id_kelas]);
+        }
+        return $this->render('nilai',['grades'=>$grades]); 
+    
     }
 
     /**

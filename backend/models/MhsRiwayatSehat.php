@@ -40,7 +40,7 @@ class MhsRiwayatSehat extends \yii\db\ActiveRecord
             [['berat', 'tinggi'], 'string', 'max' => 10],
             [['goldar'], 'string', 'max' => 5],
             [['keadaan_mata', 'alat_mata', 'keadaan_telinga', 'alat_telinga', 'sakit_berat', 'nim'], 'string', 'max' => 45],
-            [['nim'], 'exist', 'skipOnError' => true, 'targetClass' => Mahasiswa::class, 'targetAttribute' => ['nim' => 'nim']],
+            [['nim'], 'exist', 'skipOnError' => true, 'targetClass' => DataMhs::class, 'targetAttribute' => ['nim' => 'nim']],
         ];
     }
 
@@ -70,6 +70,6 @@ class MhsRiwayatSehat extends \yii\db\ActiveRecord
      */
     public function getNim0()
     {
-        return $this->hasOne(Mahasiswa::class, ['nim' => 'nim']);
+        return $this->hasOne(DataMhs::class, ['nim' => 'nim']);
     }
 }

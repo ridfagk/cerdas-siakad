@@ -3,7 +3,7 @@ use yii\widgets\{Pjax, ListView};
 use yii\helpers\Url;
 use yii\bootstrap5\Modal;
 
-$id_pegawai = $_GET['id_pegawai'];
+$nim = $_GET['nim'];
 ?>
 
 <div class="row">
@@ -14,7 +14,7 @@ $id_pegawai = $_GET['id_pegawai'];
         <div class="card card-body">
             <h4>Riwayat Pendidikan</h4>
             <p style="text-align:right">
-                <a class="btn btn-primary btn-sm custom_buttonb text-white" value="<?= Url::to(['add-pendidikan','id_pegawai' => $id_pegawai]) ?>">
+                <a class="btn btn-primary btn-sm custom_buttonb text-white" value="<?= Url::to(['add-pendidikan','nim' => $nim]) ?>">
                     <b><i class="fas fa-plus"></i> Tambah Riwayat Pendidikan</b>
                 </a>
             </p>
@@ -24,21 +24,20 @@ $id_pegawai = $_GET['id_pegawai'];
                     <th>Jenjang Pendidikan</th>
                     <th>Nama Institusi</th>
                     <th>Prodi</th>
-                    <th>Tahun Mulai</th>
-                    <th>Tahun Selesai</th>
+                    
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?= ListView::widget([
-                                                    'options' => ['class' => 'list-view'],
-                                                    'dataProvider' => $pendidikan,
-                                                    
-                                                    'itemView' => '_pendidikan_item',
-                                                    'pager' => [
-                                                        'options'=>['class'=>'pagination justify-content-center pagination-sm','style'=>'display:none'],   // set clas name used in ui list of pagination
-                                                    ],      
-                                        ]) ?>
+                                    'options' => ['class' => 'list-view'],
+                                    'dataProvider' => $pendidikan,
+                                    
+                                    'itemView' => '_pendidikan_item',
+                                    'pager' => [
+                                        'options'=>['class'=>'pagination justify-content-center pagination-sm','style'=>'display:none'],   // set clas name used in ui list of pagination
+                                    ],      
+                        ]) ?>
                     
                 </tbody>
             </table>

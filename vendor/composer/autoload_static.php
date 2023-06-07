@@ -42,6 +42,11 @@ class ComposerStaticInite85a5058bf62d904eac6b06b8ac6c1e4
         array (
             'setasign\\Fpdi\\' => 14,
         ),
+        'm' => 
+        array (
+            'mdm\\widgets\\' => 12,
+            'mdm\\behaviors\\ar\\' => 17,
+        ),
         'k' => 
         array (
             'kartik\\widgets\\' => 15,
@@ -194,6 +199,14 @@ class ComposerStaticInite85a5058bf62d904eac6b06b8ac6c1e4
         'setasign\\Fpdi\\' => 
         array (
             0 => __DIR__ . '/..' . '/setasign/fpdi/src',
+        ),
+        'mdm\\widgets\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mdmsoft/yii2-widgets',
+        ),
+        'mdm\\behaviors\\ar\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mdmsoft/yii2-ar-behaviors',
         ),
         'kartik\\widgets\\' => 
         array (
