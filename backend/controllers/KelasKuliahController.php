@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\{KelasKuliah, TimKelasKuliah, KelasKRS, MhsPresensi, MhsNilai};
+use backend\models\{KelasKuliah, TimKelasKuliah, KelasKRS, MhsPresensi, MhsNilai, DataMatkul, SistemPenilaian};
 use backend\models\KelasKuliahSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -188,52 +188,228 @@ class KelasKuliahController extends Controller
             
         ]);
     }
-    
-    
+
     public function actionPresensi($id_kelas)
     {
         $id_kelas = $_GET['id_kelas'];
+        $kelas = KelasKRS::find()->where(['kelas_id' => $id_kelas])->all();
+        $presensis = MhsPresensi::find()->where(['kelas_id'=>$id_kelas])->all();
+
+        return $this->render('presensi', [
+            'kelas' => $kelas,
+            'presensis' => $presensis,
+            'id_kelas' => $id_kelas,
+            
+        ]);
+    }
+    
+    
+    public function actionFormPresensi($id_kelas)
+    {
+        $id_kelas = $_GET['id_kelas'];
         $countpeserta = KelasKRS::find()->where(['kelas_id' => $id_kelas])->count();
-        $presensis = [new MhsPresensi];
+        $cekpresensi = MhsPresensi::find()->where(['kelas_id'=>$id_kelas])->one();
+        if (empty($cekpresensi)) {
+            $presensis = [new MhsPresensi];
 
-        for ($i=1; $i < $countpeserta ; $i++) { 
-            $presensis[] = new MhsPresensi();
-        }
-
-        if (Model::loadMultiple($presensis, Yii::$app->request->post()) && Model::validateMultiple($presensis)) {
-            foreach ($presensis as $presensi) {
-                //Try to save the models. Validation is not needed as it's already been done.
-                $presensi->save(false);
-
+            for ($i=1; $i < $countpeserta ; $i++) { 
+                $presensis[] = new MhsPresensi();
             }
-            return $this->redirect(['presensi','id_kelas'=>$id_kelas]);
+    
+            if (Model::loadMultiple($presensis, Yii::$app->request->post()) && Model::validateMultiple($presensis)) {
+                foreach ($presensis as $presensi) {
+                    //Try to save the models. Validation is not needed as it's already been done.
+                    $presensi->save(false);
+    
+                }
+                return $this->redirect(['presensi','id_kelas'=>$id_kelas]);
+            }
+        } else {
+            $presensis = [MhsPresensi::find()->where(['kelas_id'=>$id_kelas])->one()];
+
+                for($i = 1; $i < $countpeserta; $i++) {
+                    $presensis[] = MhsPresensi::find()->where(['kelas_id'=>$id_kelas])->one();
+                    
+                }
+                
+                
+                //Load and validate the multiple models
+                if (Model::loadMultiple($presensis, Yii::$app->request->post()) && Model::validateMultiple($presensis)) {
+
+                    foreach ($presensis as $presensi) {
+                        
+                        //Try to save the models. Validation is not needed as it's already been done.
+                        $presensi->save(false);
+
+                    }
+                    
+                    
+                    return $this->redirect(['presensi','id_kelas'=>$id_kelas]);
+                }
         }
-        return $this->render('presensi',['presensis'=>$presensis]); 
+        
+        return $this->renderAjax('form-presensi',['presensis'=>$presensis]); 
     
     }
+
 
     public function actionNilai($id_kelas)
     {
         $id_kelas = $_GET['id_kelas'];
-        $countpeserta = KelasKRS::find()->where(['kelas_id' => $id_kelas])->count();
-        $grades = [new MhsNilai];
+        $kelas = KelasKRS::find()->where(['kelas_id' => $id_kelas])->all();
+        $grades = MhsPresensi::find()->where(['kelas_id'=>$id_kelas])->all();
 
-        for ($i=1; $i < $countpeserta ; $i++) { 
-            $grades[] = new MhsNilai();
-        }
-
-        if (Model::loadMultiple($grades, Yii::$app->request->post()) && Model::validateMultiple($grades)) {
-            foreach ($grades as $grade) {
-                //Try to save the models. Validation is not needed as it's already been done.
-                $grade->save(false);
-
-            }
-            return $this->redirect(['nilai','id_kelas'=>$id_kelas]);
-        }
-        return $this->render('nilai',['grades'=>$grades]); 
-    
+        return $this->render('nilai', [
+            'kelas' => $kelas,
+            'grades' => $grades,
+            'id_kelas' => $id_kelas,
+            
+        ]);
     }
 
+    public function actionFormNilai($id_kelas)
+    {
+        $id_kelas = $_GET['id_kelas'];
+        $countpeserta = KelasKRS::find()->where(['kelas_id' => $id_kelas])->count();
+        $cekkelas = KelasKRS::find()->where(['kelas_id' => $id_kelas])->one();
+        $cekgrade = MhsNilai::find()->where(['kelas_id'=>$id_kelas])->one();
+        $persentasinilai = DataMatkul::find()->where(['id_matkul'=>$cekkelas->matkul_id])->one();
+        if (empty($cekgrade)) {
+            $grades = [new MhsNilai];
+
+            for ($i=1; $i < $countpeserta ; $i++) { 
+                $grades[] = new MhsNilai();
+            }
+    
+            if (Model::loadMultiple($grades, Yii::$app->request->post()) && Model::validateMultiple($grades)) {
+                foreach ($grades as $grade) {
+                    $grade->total_nilai = (($grade->nilai_uts * $persentasinilai->porsi_uts)/100) + (($grade->nilai_uas * $persentasinilai->porsi_uas)/100) + (($grade->nilai_tugas * $persentasinilai->porsi_tugas)/100) + (($grade->nilai_keaktifan * $persentasinilai->porsi_keaktifan)/100);
+                        
+                        if ($grade->total_nilai>=85) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>1])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }else if ($grade->total_nilai>=80 AND $grade->total_nilai < 85) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>2])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                        else if ($grade->total_nilai>=75 AND $grade->total_nilai < 80) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>3])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                        else if ($grade->total_nilai>=70 AND $grade->total_nilai < 75) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>4])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                        else if ($grade->total_nilai>=65 AND $grade->total_nilai < 70) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>5])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                        else if ($grade->total_nilai>=60 AND $grade->total_nilai < 65) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>6])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                        else if ($grade->total_nilai>=55 AND $grade->total_nilai < 60) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>7])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                        else if ($grade->total_nilai>=50 AND $grade->total_nilai < 55) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>8])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                        else if ($grade->total_nilai>=40 AND $grade->total_nilai < 50) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>9])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                    $grade->save(false);
+    
+                }
+                return $this->redirect(['nilai','id_kelas'=>$id_kelas]);
+            }
+        } else {
+            $grades = [MhsNilai::find()->where(['kelas_id'=>$id_kelas])->one()];
+
+                for($i = 1; $i < $countpeserta; $i++) {
+                    $grades[] = MhsNilai::find()->where(['kelas_id'=>$id_kelas])->one();
+                    
+                }
+                
+                
+                //Load and validate the multiple models
+                if (Model::loadMultiple($grades, Yii::$app->request->post()) && Model::validateMultiple($grades)) {
+
+                    foreach ($grades as $grade) {
+                        
+                        $grade->total_nilai = (($grade->nilai_uts * $persentasinilai->porsi_uts)/100) + (($grade->nilai_uas * $persentasinilai->porsi_uas)/100) + (($grade->nilai_tugas * $persentasinilai->porsi_tugas)/100) + (($grade->nilai_keaktifan * $persentasinilai->porsi_keaktifan)/100);
+                        
+                        if ($grade->total_nilai>=85) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>1])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }else if ($grade->total_nilai>=80 AND $grade->total_nilai < 85) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>2])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                        else if ($grade->total_nilai>=75 AND $grade->total_nilai < 80) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>3])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                        else if ($grade->total_nilai>=70 AND $grade->total_nilai < 75) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>4])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                        else if ($grade->total_nilai>=65 AND $grade->total_nilai < 70) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>5])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                        else if ($grade->total_nilai>=60 AND $grade->total_nilai < 65) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>6])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                        else if ($grade->total_nilai>=55 AND $grade->total_nilai < 60) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>7])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                        else if ($grade->total_nilai>=50 AND $grade->total_nilai < 55) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>8])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                        else if ($grade->total_nilai>=40 AND $grade->total_nilai < 50) {
+                            $sistemnilai = SistemPenilaian::find()->where(['id_sistemnilai'=>9])->one();
+                            $grade->nilai_angka =  $sistemnilai->nilai_mutu;
+                            $grade->nilai_huruf =  $sistemnilai->nilai_huruf;
+                        }
+                        //Try to save the models. Validation is not needed as it's already been done.
+                        $grade->save(false);
+
+                    }
+                    
+                    
+                    return $this->redirect(['nilai','id_kelas'=>$id_kelas]);
+                }
+        }
+        
+        return $this->renderAjax('form-nilai',['grades'=>$grades]); 
+    
+    }
+    
+
+    
     /**
      * Finds the KelasKuliah model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

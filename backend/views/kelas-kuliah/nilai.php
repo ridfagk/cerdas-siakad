@@ -4,6 +4,7 @@ use yii\widgets\ActiveForm;
 use mdm\widgets\TabularInput;
 use backend\models\{MhsNilai, KelasKRS};
 use yii\helpers\ArrayHelper;
+use yii\bootstrap5\Modal;
 
 $questidx = array_merge(array(''=>' '), ArrayHelper::map(KelasKRS::find()->where(['kelas_id'=>$_GET['id_kelas']])->all(),'id_mkkrs' ,'id_mkkrs'));
 ?>
@@ -13,55 +14,65 @@ $questidx = array_merge(array(''=>' '), ArrayHelper::map(KelasKRS::find()->where
         </div>
         <div class="col-md-10 card card-body">
         <h4>Penilaian</h4>
-        <div class="card mb-2">
-            <div class="card-body shadow-sm">
-                
-                <?php $form = ActiveForm::begin(['id'=>'exam']); ?>
+        <p style="text-align:right">
+            <a class="btn btn-primary btn-sm custom_buttona text-white m-1" value="<?= Url::to(['form-nilai','id_kelas' => $id_kelas]) ?>">
+                <b><i class="fas fa-plus"></i> Isi Penilaian</b>
+            </a>
+        
+        </p>
                     
-                    <div class="tab-content" id="myTabContent">
-                        <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th width="3%">NIM</th>    
-                                <th width="10%">Nama Mahasiswa</th>
-                                <th>Nilai UTS</th>
-                                <th>Nilai UAS</th>
-                                <th>Nilai Tugas</th>
-                                <th>Nilai Keaktifan</th>
-                                <th>Total Nilai</th>
-                                <th>Nilai Angka</th>
-                                <th>Nilai Huruf</th>
-                            </tr>
-                            <tr>
-                                <?php foreach ($grades as $index => $grade) { 
-                                    $list = KelasKRS::find()->where(['id_mkkrs'=>$questidx[$index]])->one();
-                                    $grade->nim = $list->nim;
-                                    $grade->matkul_id = $list->matkul_id;
-                                    $grade->thn_akademik = $list->krs->thn_akademik;
-                                    $grade->semester = $list->semester;
-                                    $grade->kelas_id = $list->kelas_id;
-                                    $grade->sks = $list->sks;
-                                    ?>
+        <div class="tab-content" id="myTabContent">
+            <div class="table-responsive">
+            <table class="table table-bordered">
+                <tr>
+                    <th width="3%">NIM</th>    
+                    <th width="10%">Nama Mahasiswa</th>
+                    <th>Nilai UTS</th>
+                    <th>Nilai UAS</th>
+                    <th>Nilai Tugas</th>
+                    <th>Nilai Keaktifan</th>
+                    <th>Total Nilai</th>
+                    <th>Nilai Mutu</th>
+                    <th>Nilai Huruf</th>
+                </tr>
+                <tr>
+                    <?php foreach ($kelas as $index => $mhs) { 
+                        $grade = MhsNilai::find()->where(['nim'=>$mhs->nim])->one();
+                        ?>
 
-                                        <td><?=  $list->nim;?> </td>
-                                        <td><?=  $list->mhs->nama_mahasiswa;?> </td>
-                                        <td><?= $form->field($grade, "[$index]nilai_uts")->textInput(['type' => 'number'])->label(false) ?> </td>
-                                        <td><?= $form->field($grade, "[$index]nilai_uas")->textInput(['type' => 'number'])->label(false) ?> </td>
-                                        <td><?= $form->field($grade, "[$index]nilai_tugas")->textInput(['type' => 'number'])->label(false) ?> </td>
-                                        <td><?= $form->field($grade, "[$index]nilai_keaktifan")->textInput(['type' => 'number'])->label(false) ?> </td>
-                                        <td><?= $form->field($grade, "[$index]total_nilai")->textInput(['disabled' => 'disabled'])->label(false) ?> </td>
-                                        <td><?= $form->field($grade, "[$index]nilai_angka")->textInput(['disabled' => 'disabled'])->label(false) ?> </td>
-                                        <td><?= $form->field($grade, "[$index]nilai_huruf")->textInput(['disabled' => 'disabled'])->label(false) ?> </td>
-                                        <?= $form->field($grade, "[$index]nim")->hiddenInput(['maxlength' => true])->label(false) ?> 
-                                <?php } ?>
-                            </tr>
+                            <td><?=  $mhs->nim;?> </td>
+                            <td><?=  $mhs->mhs->nama_mahasiswa;?> </td>
+                            <td> <?= (empty($grade)) ? '' : $grade->nilai_uts ?></td>
+                            <td> <?= (empty($grade)) ? '' : $grade->nilai_uas ?></td>
+                            <td> <?= (empty($grade)) ? '' : $grade->nilai_tugas ?></td>
+                            <td> <?= (empty($grade)) ? '' : $grade->nilai_keaktifan ?></td>
+                            <td> <?= (empty($grade)) ? '' : $grade->total_nilai ?></td>
+                            <td> <?= (empty($grade)) ? '' : $grade->nilai_angka ?></td>
+                            <td> <?= (empty($grade)) ? '' : $grade->nilai_huruf ?></td>
                             
-                        </table>
-                        </div>
-                    </div>
-                    <?= Html::submitButton('Simpan Nilai', ['class' => 'btn btn-primary btn-block']) ?>
-                    <?php ActiveForm::end(); ?>
-                </div>
+                            
+                    <?php } ?>
+                </tr>
+                
+            </table>
             </div>
+        </div>
     </div>
 </div>
+<?php
+$js=<<<js
+    $(function(){
+        $('.custom_buttona').click(function(){
+            $('#modalViewa').modal('show').find('#modalContentViewa').load($(this).attr('value'));
+        
+        });});
+
+js;
+$this->registerJs($js);
+
+    Modal::begin(['id'=>'modalViewa', 'title'=>'Isi Presensi Kelas','size'=>'modal-xl']);
+    echo "<div id='modalContentViewa'></div>";
+    Modal::end();
+    
+   
+?>

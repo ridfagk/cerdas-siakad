@@ -41,7 +41,7 @@ class MhsNilai extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_nilai', 'nim', 'kelas_id', 'matkul_id', 'sks', 'thn_akademik', 'semester', 'nilai_uts', 'nilai_uas', 'nilai_tugas', 'nilai_keaktifan'], 'required'],
+            [[ 'nim', 'kelas_id', 'matkul_id', 'sks', 'thn_akademik', 'semester', 'nilai_uts', 'nilai_uas', 'nilai_tugas', 'nilai_keaktifan'], 'required'],
             [['id_nilai', 'kelas_id'], 'integer'],
             [['nim', 'matkul_id', 'sks', 'thn_akademik', 'semester', 'nilai_uts', 'nilai_uas', 'nilai_tugas', 'nilai_keaktifan', 'total_nilai'], 'string', 'max' => 45],
             [['nilai_angka', 'nilai_huruf'], 'string', 'max' => 5],
@@ -92,5 +92,10 @@ class MhsNilai extends \yii\db\ActiveRecord
     public function getNim0()
     {
         return $this->hasOne(DataMhs::class, ['nim' => 'nim']);
+    }
+
+    public function getMk()
+    {
+        return $this->hasOne(DataMatkul::class, ['id_matkul' => 'matkul_id']);
     }
 }
