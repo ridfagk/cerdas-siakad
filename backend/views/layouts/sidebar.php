@@ -72,7 +72,15 @@ use yii\helpers\Html;
                         ]
                     ],
                     ['label' => 'Mahasiswa', 'url' => ['mahasiswa/index'], 'icon' => 'file-export'],
-                    ['label' => 'Evaluasi', 'icon' => 'file-alt'],
+                    [
+                        'label' => 'Evaluasi',
+                        'icon' => 'file-alt',
+                        'items' => [
+                            ['label' => 'Evaluasi Mata Kuliah', 'url' => ['eval-matkul/index'], 'icon' => 'bullseye'],
+                            ['label' => 'Evaluasi Dosen', 'url' => ['eval-dosen/index'], 'icon' => 'bullseye'],
+                            ['label' => 'Evaluasi TKM', 'url' => ['eval-tkm/index'], 'icon' => 'bullseye'],
+                        ]
+                    ],
                     ['label' => 'Template Surat', 'url' => ['template-surat/index'] ,'icon' => 'envelope'],
                     ['label' => 'Pengumuman', 'url' => ['pengumuman/index'],'icon' => 'info-circle'],
                     // [
